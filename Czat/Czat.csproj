@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Icons\send.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="MVVM\View\" />
+    <Folder Include="Core\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Icons\send.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+</Project>
