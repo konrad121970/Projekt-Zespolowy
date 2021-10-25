@@ -1,2 +1,2 @@
-# PROJEKT_ZESPOLOWY
-Projekt zespołowy grupy PS2
+# Projekt-Zespolowy
+Projekt czatu internetowego 
