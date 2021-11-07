@@ -5,9 +5,9 @@ using Network.DataTransfer.Request;
 using Network.DataTransfer.Response;
 using Network.DataTransfer.Notification;
 
-namespace ClientApplication2 {
+namespace ClientApplication3 {
 
-    class ClientApp2 {
+    class ClientApp3 {
         static void Main(string[] args) {
             // Connect to server
             Client.Instance.Connect("127.0.0.1", 65535);
@@ -18,8 +18,8 @@ namespace ClientApplication2 {
 
             // Login to account
             Client.Instance.SendRequest(new LoginRequest() {
-                Login = "Kasztan",
-                Password = "Password2"
+                Login = "Mariusz",
+                Password = "Password3"
             });
 
             // Send requests
@@ -35,7 +35,7 @@ namespace ClientApplication2 {
 
                 Client.Instance.SendRequest(new SendMessageRequest() {
                     SenderID = Client.Data.UserID,
-                    ReceiverID = "Mariusz#0003",
+                    ReceiverID = "Kasztan#0002",
 
                     MessageContent = message
                 });
