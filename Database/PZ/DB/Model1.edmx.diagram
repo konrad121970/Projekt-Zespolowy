@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1a74567fb999438e902c030abc480eb2" Name="Diagram1" ZoomLevel="94">
+        <EntityTypeShape EntityType="Database1Model.C__MigrationHistory" Width="1.5" PointX="5.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.ConversationMembers" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Conversations" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Messages" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Users" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <AssociationConnector Association="Database1Model.FK_dbo_ConversationMembers_dbo_Conversations_ConversationID_ConversationID" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK_dbo_ConversationMembers_dbo_Users_UserID_UserID" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK_dbo_Messages_dbo_Conversations_ConversationID_ConversationID" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK_dbo_Messages_dbo_Users_UserID_UserID" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
