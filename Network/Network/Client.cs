@@ -45,20 +45,29 @@ namespace Network {
 
             // Receive data
             Task.Run(() => {
+                byte[] receive_buffer = new byte[4 * 1024 * 1024]; // 4 MB cache
+                int buffer_length = 0;
+
                 while (true) {
                     try {
                         byte[] received_bytes = new byte[Client.Data.Server.Available];
                         Client.Data.Stream.Read(received_bytes, 0, received_bytes.Length);
 
-                        if (received_bytes.Length == 0) {
+                        Array.Copy(received_bytes, 0, receive_buffer, buffer_length, received_bytes.Length);
+                        buffer_length += received_bytes.Length;
+
+                        // TODO: Replace sleep wtih better solution
+                        Thread.Sleep(1);
+
+                        if (received_bytes.Length == 0 || Client.Data.Stream.DataAvailable == true) {
                             continue;
                         }
 
-                        for (int index = 0, length = 0; index < received_bytes.Length; index += (length + 4)) {
-                            length = BitConverter.ToInt32(received_bytes, index);
+                        for (int index = 0, length = 0; index < buffer_length; index += (length + 4)) {
+                            length = BitConverter.ToInt32(receive_buffer, index);
 
                             var data = new byte[length];
-                            Array.Copy(received_bytes, index + 4, data, 0, length);
+                            Array.Copy(receive_buffer, index + 4, data, 0, length);
 
                             var obj = Serializer.Deserialize(data);
                             received_data_queue.Add(obj);
@@ -74,6 +83,8 @@ namespace Network {
 
                         Console.WriteLine(e);
                     }
+
+                    buffer_length = 0;
                 }
             });
 
