@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TestWPF
+namespace Czat
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -35,18 +35,20 @@ namespace TestWPF
 
         private void ButtonMinimize_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.MainWindow.WindowState = WindowState.Minimized;
+            this.WindowState = WindowState.Minimized;
         }
 
         private void WindowStateButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Application.Current.MainWindow.WindowState != WindowState.Maximized)
+            if (this.WindowState != WindowState.Maximized)
             {
-                Application.Current.MainWindow.WindowState = WindowState.Maximized;
+                this.ResizeMode = ResizeMode.NoResize;
+                this.WindowState = WindowState.Maximized;
             }
             else
             {
-                Application.Current.MainWindow.WindowState = WindowState.Normal;
+                this.ResizeMode = ResizeMode.CanResize;
+                this.WindowState = WindowState.Normal;
             }
         }
 

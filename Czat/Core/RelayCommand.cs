@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace TestWPF.Core
+namespace Czat.Core
 {
     public class RelayCommand : ICommand
     {

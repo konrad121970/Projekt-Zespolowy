@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace TestWPF.Core
+namespace Czat.Core
 {
     class ObservableObject : INotifyPropertyChanged
     {

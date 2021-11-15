@@ -20,7 +20,7 @@
                                      Foreground="Gray"
                                      CaretBrush="Gray"
                                      Margin="8,0,0,0"
-                                     Text="{Binding Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                     Text="{Binding Message, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}">
                                 <TextBox.InputBindings>
                                     <KeyBinding Command="{Binding SendCommand}" Key="Return"/>
                                 </TextBox.InputBindings>

@@ -4,10 +4,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TestWPF.Core;
-using TestWPF.MVVM.Model;
+using Czat.Core;
+using Czat.MVVM.Model;
 
-namespace TestWPF.MVVM.ViewModel
+namespace Czat.MVVM.ViewModel
 {
     class MainViewModel : ObservableObject
     {

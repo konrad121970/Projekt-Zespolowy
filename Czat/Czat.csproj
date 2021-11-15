@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Icons\logo.png" />
     <None Remove="Icons\send.png" />
   </ItemGroup>
 
@@ -16,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Icons\logo.png" />
     <Resource Include="Icons\send.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
