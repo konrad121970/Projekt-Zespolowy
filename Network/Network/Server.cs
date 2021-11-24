@@ -159,9 +159,7 @@ namespace Network {
                     stream.Write(response_bytes, 0, response_bytes.Length);
                 }
             }
-            catch {
-
-            }
+            catch { }
         }
 
         internal static void SendNotification(TcpClient client, BaseNotification notification) {
@@ -173,9 +171,7 @@ namespace Network {
                     stream.Write(notification_bytes, 0, notification_bytes.Length);
                 }
             }
-            catch { 
-            
-            }
+            catch { }
         }
 
 

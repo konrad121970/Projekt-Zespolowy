@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Database
+namespace Network.Database
 {
     using System;
     using System.Collections.Generic;

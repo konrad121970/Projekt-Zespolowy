@@ -10,6 +10,8 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using Network.Core;
+using Network.Database;
+
 using Network.DataTransfer.Request;
 using Network.DataTransfer.Response;
 using Network.DataTransfer.Notification;
@@ -124,9 +126,7 @@ namespace Network {
                     Client.Data.Stream.Write(request_bytes, 0, request_bytes.Length);
                 }
             }
-            catch {
-
-            }
+            catch { }
         }
 
 

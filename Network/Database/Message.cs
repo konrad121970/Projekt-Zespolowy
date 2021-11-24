@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Database
+namespace Network.Database
 {
     using System;
     using System.Collections.Generic;
@@ -15,7 +15,7 @@ namespace Database
     public partial class Message
     {
         public int ID { get; set; }
-        public int Account_ID { get; set; }
+        public int Sender_ID { get; set; }
         public int Conversation_ID { get; set; }
         public string Content { get; set; }
         public System.DateTime SendDate { get; set; }
