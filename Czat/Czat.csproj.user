@@ -7,15 +7,15 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Login.xaml.cs">
+    <Compile Update="MVVM\View\Login.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Login.xaml">
+    <Page Update="MVVM\View\Login.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="MainWindow.xaml">
+    <Page Update="MVVM\View\MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Themes\ChatItem.xaml">
@@ -25,9 +25,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Themes\Scrollbar.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Themes\SendIcon.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

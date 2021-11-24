@@ -37,7 +37,6 @@ namespace Czat.MVVM.ViewModel
                 MessageBox.Show(pb.Password); //hasło
 
             });
-
         }
     }
 }

@@ -39,19 +39,6 @@ namespace Czat.MVVM.ViewModel
                 });
                 Message = "";
             });
-
-           /*Messages.Add(new MessageModel
-            {
-                Message = "test1"
-            });
-
-            for (int i = 0; i < 3; i++)
-            {
-                Messages.Add(new MessageModel
-                {
-                    Message = "test" + i
-                });
-            }*/
         }
     }
 }

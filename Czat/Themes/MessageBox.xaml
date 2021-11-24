@@ -26,12 +26,9 @@
                                 </TextBox.InputBindings>
                             </TextBox>
                         </Grid>
-
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
-
         </Setter>
-
     </Style>
 </ResourceDictionary>
