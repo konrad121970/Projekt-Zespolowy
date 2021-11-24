@@ -1,14 +1,13 @@
-﻿using System;
+﻿using DrocsidApp.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using Czat.Core;
 
-namespace Czat.MVVM.ViewModel
+namespace DrocsidApp.MVVM.ViewModel
 {
     class LoginViewModel : ObservableObject
     {
@@ -25,8 +24,6 @@ namespace Czat.MVVM.ViewModel
             }
         }
         private string _Login;
-
-
 
         public LoginViewModel()
         {

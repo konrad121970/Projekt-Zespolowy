@@ -1,0 +1,34 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style TargetType="TextBox" x:Key="MessageBox">
+        <Setter Property="Foreground" Value="Gray"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="Margin" Value="8"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <Border CornerRadius="8"
+                            Background="#3e4147">
+                        <Grid>
+                            <TextBox VerticalAlignment="Stretch"
+                                     VerticalContentAlignment="Center"
+                                     HorizontalAlignment="Stretch"
+                                     Background="Transparent"
+                                     TextWrapping="Wrap"
+                                     BorderThickness="0"
+                                     Foreground="Gray"
+                                     CaretBrush="Gray"
+                                     Margin="8,0,0,0"
+                                     Text="{Binding Message, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}">
+                                <TextBox.InputBindings>
+                                    <KeyBinding Command="{Binding SendCommand}" Key="Return"/>
+                                </TextBox.InputBindings>
+                            </TextBox>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

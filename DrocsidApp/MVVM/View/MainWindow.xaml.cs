@@ -12,17 +12,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Czat
+namespace DrocsidApp.MVVM.View
 {
     /// <summary>
-    /// Logika interakcji dla klasy Login.xaml
+    /// Logika interakcji dla klasy MainWindow.xaml
     /// </summary>
-    public partial class Login : Window
+    public partial class MainWindow : Window
     {
-        public Login()
+        public MainWindow()
         {
             InitializeComponent();
         }
+
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -53,13 +54,6 @@ namespace Czat
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            MainWindow czat = new MainWindow();
-            czat.Show();
-            this.Close();
         }
     }
 }
