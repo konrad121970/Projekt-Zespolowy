@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9c526ba3c66b48d5af58b4ca029aea5a" Name="Diagram1">
+        <EntityTypeShape EntityType="PZ_DBModel.Account" Width="1.5" PointX="3.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PZ_DBModel.Conversation" Width="1.5" PointX="0.5" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="PZ_DBModel.Message" Width="1.5" PointX="6.375" PointY="2" IsExpanded="true" />
+        <AssociationConnector Association="PZ_DBModel.FK__Message__Sender___276EDEB3" ManuallyRouted="false" />
+        <AssociationConnector Association="PZ_DBModel.FK__Message__Convers__286302EC" ManuallyRouted="false" />
+        <AssociationConnector Association="PZ_DBModel.Account_Conversation" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

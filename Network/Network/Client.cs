@@ -56,7 +56,7 @@ namespace Network {
                         Array.Copy(received_bytes, 0, receive_buffer, buffer_length, received_bytes.Length);
                         buffer_length += received_bytes.Length;
 
-                        // TODO: Replace sleep wtih better solution
+                        // TODO: Replace sleep with better solution
                         Thread.Sleep(1);
 
                         if (received_bytes.Length == 0 || Client.Data.Stream.DataAvailable == true) {

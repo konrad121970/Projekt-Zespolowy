@@ -5,20 +5,18 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FDF3145B-A980-4B1D-BF18-AC7E1681BA37}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>ClientApplication1</RootNamespace>
-    <AssemblyName>ClientApplication1</AssemblyName>
+    <ProjectGuid>{AB23D49E-7992-4D09-87CF-443E45EC3413}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Database</RootNamespace>
+    <AssemblyName>Database</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
-    <LangVersion>9.0</LangVersion>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -26,19 +24,14 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <OutputPath>$(SolutionDir)Build\Debug\bin\$(AssemblyName)</OutputPath>
-    <IntermediateOutputPath>$(SolutionDir)Build\Debug\obj\$(AssemblyName)</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <OutputPath>$(SolutionDir)Build\Release\bin\$(AssemblyName)</OutputPath>
-    <IntermediateOutputPath>$(SolutionDir)Build\Release\obj\$(AssemblyName)</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -50,6 +43,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -58,18 +53,57 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClientApp1.cs" />
+    <Compile Include="Account.cs">
+      <DependentUpon>DrocsidDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Conversation.cs">
+      <DependentUpon>DrocsidDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DrocsidDb.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DrocsidDb.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DrocsidDb.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DrocsidDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DrocsidDb.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DrocsidDb.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Message.cs">
+      <DependentUpon>DrocsidDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <EntityDeploy Include="DrocsidDb.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DrocsidDb.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DrocsidDb.edmx.diagram">
+      <DependentUpon>DrocsidDb.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Network\Network.csproj">
-      <Project>{37bca38a-b2f6-49f8-a08b-f8ab19e56d93}</Project>
-      <Name>Network</Name>
-    </ProjectReference>
+    <Content Include="DrocsidDb.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DrocsidDb.edmx</DependentUpon>
+      <LastGenOutput>DrocsidDb.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DrocsidDb.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DrocsidDb.edmx</DependentUpon>
+      <LastGenOutput>DrocsidDb.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

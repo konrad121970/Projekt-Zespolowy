@@ -18,8 +18,8 @@ namespace ClientApplication2 {
 
             // Login to account
             Client.Instance.SendRequest(new LoginRequest() {
-                Login = "Kasztan",
-                Password = "Password2"
+                Login = "karmelek17",
+                Password = "karas"
             });
 
             // Send requests
@@ -28,14 +28,7 @@ namespace ClientApplication2 {
 
                 Client.Instance.SendRequest(new SendMessageRequest() {
                     SenderID = Client.Data.UserID,
-                    ReceiverID = "Andrzej#0001",
-
-                    MessageContent = message
-                });
-
-                Client.Instance.SendRequest(new SendMessageRequest() {
-                    SenderID = Client.Data.UserID,
-                    ReceiverID = "Mariusz#0003",
+                    ReceiverID = "pudzian028",
 
                     MessageContent = message
                 });

@@ -5,20 +5,33 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
+using Network.Database;
 using Network.DataTransfer.Response;
 using Network.DataTransfer.Notification;
+
+using Microsoft.AspNetCore.Identity;
 
 namespace Network.DataTransfer.Request {
 
     [Serializable]
     public class LoginRequest : BaseRequest {
         internal override RequestResult Process(TcpClient client) {
-            var userLoginDetails = Server.Data.UserLoginData.Find(p => (p.Item1 == Login) && (p.Item2 == Password));
+            bool user_exists_in_db = false;
 
-            if (userLoginDetails != null) {
+            using (var db = new DrocsidDbContext()) {
+                var account_list = db.Accounts.ToList();
+                var account = account_list.Find(p => (p.Username == Login));
+
+                if(account != null) {
+                    var passwordHasher = new PasswordHasher<string>();
+                    user_exists_in_db = passwordHasher.VerifyHashedPassword(null, account.Password, Password) == PasswordVerificationResult.Success;
+                }
+            }
+
+            if (user_exists_in_db) {
                 var connected_client = new ConnectedClient() {
                     // User data 
-                    UserID = userLoginDetails.Item3,
+                    UserID = Login,
 
                     // Connection data
                     Client = client,

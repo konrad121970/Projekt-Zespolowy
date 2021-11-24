@@ -10,12 +10,11 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using Network.Core;
+using Network.Database;
+
 using Network.DataTransfer.Request;
 using Network.DataTransfer.Response;
 using Network.DataTransfer.Notification;
-
-// TODO: Remove this when database is implemented
-using UserLoginDetails = System.Tuple<string, string, string>; // Tuple<Login, Password, UserID>
 
 namespace Network {
 
@@ -68,7 +67,7 @@ namespace Network {
                         Array.Copy(request_bytes, 0, request_buffer, buffer_length, request_bytes.Length);
                         buffer_length += request_bytes.Length;
 
-                        // TODO: Replace sleep wtih better solution
+                        // TODO: Replace sleep with better solution
                         Thread.Sleep(1);
 
                         if (request_bytes.Length == 0 || stream.DataAvailable == true) {
@@ -183,13 +182,6 @@ namespace Network {
         internal class Data {
             public static TcpListener Listener { get; set; }
             public static ThreadSafeList<ConnectedClient> ConnectedClients { get; set; }
-
-            // TODO: Replace this with database
-            public static List<UserLoginDetails> UserLoginData = new List<UserLoginDetails> {
-                new UserLoginDetails("Andrzej", "Password1", "Andrzej#0001"),
-                new UserLoginDetails("Kasztan", "Password2", "Kasztan#0002"),
-                new UserLoginDetails("Mariusz", "Password3", "Mariusz#0003")
-            };
         }
     }
 
