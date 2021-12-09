@@ -23,9 +23,13 @@ namespace ClientApp.MVVM.ViewModel {
                 Client.Instance.Connect("127.0.0.1", 65535);
                 Client.Instance.ResponseReceived += OnResponseReceived;
 
-                Client.Instance.SendRequest(new LoginRequest() { 
-                    Login = this.Login,
-                    Password = passwordBox.Password
+                Client.Instance.SendRequest(new LoginRequest() {
+                    //Login = this.Login,
+                    //Password = passwordBox.Password
+
+                    // TODO: Remove this
+                    Login = "pudzian028",
+                    Password = "okon"
                 });
             });
         }

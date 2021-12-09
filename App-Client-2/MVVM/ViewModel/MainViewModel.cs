@@ -17,6 +17,7 @@ namespace ClientApp.MVVM.ViewModel {
     class MainViewModel : ObservableObject {
         public MainViewModel() {
             Client.Instance.NotificationReceived += OnNotificationReceived;
+            Messages = new ObservableCollection<Message>();
 
             SendMessageCommand = new RelayCommand(obj => {
                 var message = new Message();
@@ -31,8 +32,6 @@ namespace ClientApp.MVVM.ViewModel {
                 Messages.Add(message);
                 Message = "";
             });
-
-            Messages = new ObservableCollection<Message>();
         }
 
         // Notification event handling

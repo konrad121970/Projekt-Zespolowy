@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
+using Network.Database;
 using Network.DataTransfer.Response;
 using Network.DataTransfer.Notification;
 
@@ -31,6 +32,21 @@ namespace Network.DataTransfer.Request {
                 NotificationReceivers = notification_receivers,
                 NotificationData = notification_data
             };
+
+            using (var db = new DrocsidDbContext()) {
+                var account_list = db.Accounts.ToList();
+                var account = account_list.Find(p => (p.Username == SenderID));
+
+                db.Messages.Add(new Message() { 
+                    Sender_ID = account.ID,
+                    Conversation_ID = 1,
+                    Content = MessageContent,
+
+                    SendDate = DateTime.Now
+                });
+
+                db.SaveChanges();
+            }
 
             return request_result;
         }
