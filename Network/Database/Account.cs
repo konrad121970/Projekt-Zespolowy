@@ -18,6 +18,8 @@ namespace Network.Database
         public Account()
         {
             this.Messages = new HashSet<Message>();
+            this.PendingFriendInvitations = new HashSet<PendingFriendInvitation>();
+            this.PendingFriendInvitations1 = new HashSet<PendingFriendInvitation>();
             this.Conversations = new HashSet<Conversation>();
         }
     
@@ -27,6 +29,10 @@ namespace Network.Database
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Message> Messages { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PendingFriendInvitation> PendingFriendInvitations { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PendingFriendInvitation> PendingFriendInvitations1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Conversation> Conversations { get; set; }
     }

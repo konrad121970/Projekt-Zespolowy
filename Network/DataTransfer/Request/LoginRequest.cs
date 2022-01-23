@@ -24,7 +24,7 @@ namespace Network.DataTransfer.Request {
 
                 if(account != null) {
                     var passwordHasher = new PasswordHasher<string>();
-                    user_exists_in_db = passwordHasher.VerifyHashedPassword(null, account.Password, Password) == PasswordVerificationResult.Success;
+                    user_exists_in_db = (passwordHasher.VerifyHashedPassword(null, account.Password, Password) == PasswordVerificationResult.Success);
                 }
             }
 
@@ -41,8 +41,21 @@ namespace Network.DataTransfer.Request {
                 Server.Data.ConnectedClients.Add(connected_client);
                 Console.WriteLine("{0} connected to the server!", connected_client.UserID);
 
+                var friends = new List<string>();
+                using (var db = new DrocsidDbContext()) {
+                    var account = db.Accounts.Where(p => (p.Username == connected_client.UserID)).First();
+                    var conversations = account.Conversations.Where(p => (p.Name == "..."));
+
+                    foreach(var acc in db.Accounts) {
+                        if((acc != account) && (acc.Conversations.Intersect(conversations).Any())) {
+                            friends.Add(acc.Username);
+                        }
+                    }
+                }
+
                 var response_data = new LoginResponse(ResponseResult.SUCCESS) {
-                    UserID = connected_client.UserID
+                    UserID = connected_client.UserID,
+                    FriendIDs = friends
                 };
 
                 var request_result = new RequestResult() {

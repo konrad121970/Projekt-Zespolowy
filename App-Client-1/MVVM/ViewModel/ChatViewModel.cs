@@ -14,7 +14,6 @@ namespace ClientApp.MVVM.ViewModel
 {
     class ChatViewModel : ObservableObject
     {
-       
         public ChatViewModel()
         {
             Client.Instance.NotificationReceived += OnNotificationReceived;
@@ -28,6 +27,7 @@ namespace ClientApp.MVVM.ViewModel
                 {
                     SenderID = Client.Data.UserID,
                     ReceiverID = CurrentUser.Id,
+
                     MessageContent = Message
                 });
 

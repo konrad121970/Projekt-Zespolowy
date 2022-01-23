@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,7 +12,9 @@ using Network.DataTransfer.Request;
 using Network.DataTransfer.Response;
 
 using ClientApp.Core;
+
 using ClientApp.MVVM.Model;
+using ClientApp.MVVM.View;
 
 namespace ClientApp.MVVM.ViewModel {
     
@@ -31,6 +34,15 @@ namespace ClientApp.MVVM.ViewModel {
                     Login = "karmelek17",
                     Password = "karas"
                 });
+
+                while (!LoggedIn) {
+                    Thread.Sleep(8);
+                }
+
+                var chatWindow = new MainWindow();
+                chatWindow.Show();
+
+                Application.Current.Windows[0].Close();
             });
         }
 
@@ -44,7 +56,11 @@ namespace ClientApp.MVVM.ViewModel {
             switch (response.Result) {
                 case ResponseResult.SUCCESS: {
                     MessageBox.Show("Signed in as " + response.UserID);
+
                     Client.Data.UserID = response.UserID;
+                    Client.Data.FriendList = response.FriendIDs;
+
+                    LoggedIn = true;
                     break;
                 }
                 case ResponseResult.FAILURE: {
@@ -56,6 +72,7 @@ namespace ClientApp.MVVM.ViewModel {
 
         // Commands
         public RelayCommand LoginCommand { get; set; }
+        public static bool LoggedIn = false;
 
         // Properties
         public string Login {

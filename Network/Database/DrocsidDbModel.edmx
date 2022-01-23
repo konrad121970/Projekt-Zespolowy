@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DrocsidDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DrocsidDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="ID" />
@@ -37,6 +37,14 @@
           <Property Name="Conversation_ID" Type="int" Nullable="false" />
           <Property Name="Content" Type="varchar" MaxLength="1024" Nullable="false" />
           <Property Name="SendDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PendingFriendInvitation">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sender_ID" Type="int" Nullable="false" />
+          <Property Name="Receiver_ID" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK__Account_C__Conve__2C3393D0">
           <End Role="Conversation" Type="Self.Conversation" Multiplicity="1" />
@@ -86,11 +94,36 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__PendingFr__Recei__300424B4">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="PendingFriendInvitation" Type="Self.PendingFriendInvitation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PendingFriendInvitation">
+              <PropertyRef Name="Receiver_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PendingFr__Sende__2F10007B">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="PendingFriendInvitation" Type="Self.PendingFriendInvitation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PendingFriendInvitation">
+              <PropertyRef Name="Sender_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="DrocsidDbModelStoreContainer">
           <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Account_Conversation" EntityType="Self.Account_Conversation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Conversation" EntityType="Self.Conversation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Message" EntityType="Self.Message" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PendingFriendInvitation" EntityType="Self.PendingFriendInvitation" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Account_C__Conve__2C3393D0" Association="Self.FK__Account_C__Conve__2C3393D0">
             <End Role="Conversation" EntitySet="Conversation" />
             <End Role="Account_Conversation" EntitySet="Account_Conversation" />
@@ -107,30 +140,65 @@
             <End Role="Account" EntitySet="Account" />
             <End Role="Message" EntitySet="Message" />
           </AssociationSet>
+          <AssociationSet Name="FK__PendingFr__Recei__300424B4" Association="Self.FK__PendingFr__Recei__300424B4">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="PendingFriendInvitation" EntitySet="PendingFriendInvitation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PendingFr__Sende__2F10007B" Association="Self.FK__PendingFr__Sende__2F10007B">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="PendingFriendInvitation" EntitySet="PendingFriendInvitation" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DrocsidDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DrocsidDbContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Accounts" EntityType="DrocsidDbModel.Account" />
+          <EntitySet Name="Conversations" EntityType="DrocsidDbModel.Conversation" />
+          <EntitySet Name="Messages" EntityType="DrocsidDbModel.Message" />
+          <EntitySet Name="PendingFriendInvitations" EntityType="DrocsidDbModel.PendingFriendInvitation" />
+          <AssociationSet Name="FK__Message__Sender___276EDEB3" Association="DrocsidDbModel.FK__Message__Sender___276EDEB3">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="Message" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PendingFr__Recei__300424B4" Association="DrocsidDbModel.FK__PendingFr__Recei__300424B4">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="PendingFriendInvitation" EntitySet="PendingFriendInvitations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PendingFr__Sende__2F10007B" Association="DrocsidDbModel.FK__PendingFr__Sende__2F10007B">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="PendingFriendInvitation" EntitySet="PendingFriendInvitations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Message__Convers__286302EC" Association="DrocsidDbModel.FK__Message__Convers__286302EC">
+            <End Role="Conversation" EntitySet="Conversations" />
+            <End Role="Message" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="Account_Conversation" Association="DrocsidDbModel.Account_Conversation">
+            <End Role="Conversation" EntitySet="Conversations" />
+            <End Role="Account" EntitySet="Accounts" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Username" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Messages" Relationship="Self.FK__Message__Sender___276EDEB3" FromRole="Account" ToRole="Message" />
-          <NavigationProperty Name="Conversations" Relationship="Self.Account_Conversation" FromRole="Account" ToRole="Conversation" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Messages" Relationship="DrocsidDbModel.FK__Message__Sender___276EDEB3" FromRole="Account" ToRole="Message" />
+          <NavigationProperty Name="PendingFriendInvitations" Relationship="DrocsidDbModel.FK__PendingFr__Recei__300424B4" FromRole="Account" ToRole="PendingFriendInvitation" />
+          <NavigationProperty Name="PendingFriendInvitations1" Relationship="DrocsidDbModel.FK__PendingFr__Sende__2F10007B" FromRole="Account" ToRole="PendingFriendInvitation" />
+          <NavigationProperty Name="Conversations" Relationship="DrocsidDbModel.Account_Conversation" FromRole="Account" ToRole="Conversation" />
         </EntityType>
         <EntityType Name="Conversation">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Messages" Relationship="Self.FK__Message__Convers__286302EC" FromRole="Conversation" ToRole="Message" />
-          <NavigationProperty Name="Accounts" Relationship="Self.Account_Conversation" FromRole="Conversation" ToRole="Account" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Messages" Relationship="DrocsidDbModel.FK__Message__Convers__286302EC" FromRole="Conversation" ToRole="Message" />
+          <NavigationProperty Name="Accounts" Relationship="DrocsidDbModel.Account_Conversation" FromRole="Conversation" ToRole="Account" />
         </EntityType>
         <EntityType Name="Message">
           <Key>
@@ -139,14 +207,24 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Sender_ID" Type="Int32" Nullable="false" />
           <Property Name="Conversation_ID" Type="Int32" Nullable="false" />
-          <Property Name="Content" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Content" Type="String" Nullable="false" MaxLength="1024" FixedLength="false" Unicode="false" />
           <Property Name="SendDate" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="Account" Relationship="Self.FK__Message__Sender___276EDEB3" FromRole="Message" ToRole="Account" />
-          <NavigationProperty Name="Conversation" Relationship="Self.FK__Message__Convers__286302EC" FromRole="Message" ToRole="Conversation" />
+          <NavigationProperty Name="Account" Relationship="DrocsidDbModel.FK__Message__Sender___276EDEB3" FromRole="Message" ToRole="Account" />
+          <NavigationProperty Name="Conversation" Relationship="DrocsidDbModel.FK__Message__Convers__286302EC" FromRole="Message" ToRole="Conversation" />
+        </EntityType>
+        <EntityType Name="PendingFriendInvitation">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sender_ID" Type="Int32" Nullable="false" />
+          <Property Name="Receiver_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="DrocsidDbModel.FK__PendingFr__Recei__300424B4" FromRole="PendingFriendInvitation" ToRole="Account" />
+          <NavigationProperty Name="Account1" Relationship="DrocsidDbModel.FK__PendingFr__Sende__2F10007B" FromRole="PendingFriendInvitation" ToRole="Account" />
         </EntityType>
         <Association Name="FK__Message__Sender___276EDEB3">
-          <End Role="Account" Type="Self.Account" Multiplicity="1" />
-          <End Role="Message" Type="Self.Message" Multiplicity="*" />
+          <End Type="DrocsidDbModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="DrocsidDbModel.Message" Role="Message" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Account">
               <PropertyRef Name="ID" />
@@ -156,9 +234,33 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__PendingFr__Recei__300424B4">
+          <End Type="DrocsidDbModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="DrocsidDbModel.PendingFriendInvitation" Role="PendingFriendInvitation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PendingFriendInvitation">
+              <PropertyRef Name="Receiver_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PendingFr__Sende__2F10007B">
+          <End Type="DrocsidDbModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="DrocsidDbModel.PendingFriendInvitation" Role="PendingFriendInvitation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PendingFriendInvitation">
+              <PropertyRef Name="Sender_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Message__Convers__286302EC">
-          <End Role="Conversation" Type="Self.Conversation" Multiplicity="1" />
-          <End Role="Message" Type="Self.Message" Multiplicity="*" />
+          <End Type="DrocsidDbModel.Conversation" Role="Conversation" Multiplicity="1" />
+          <End Type="DrocsidDbModel.Message" Role="Message" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Conversation">
               <PropertyRef Name="ID" />
@@ -169,26 +271,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="Account_Conversation">
-          <End Role="Conversation" Type="Self.Conversation" Multiplicity="*" />
-          <End Role="Account" Type="Self.Account" Multiplicity="*" />
+          <End Type="DrocsidDbModel.Conversation" Role="Conversation" Multiplicity="*" />
+          <End Type="DrocsidDbModel.Account" Role="Account" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="DrocsidDbContext" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Accounts" EntityType="Self.Account" />
-          <EntitySet Name="Conversations" EntityType="Self.Conversation" />
-          <EntitySet Name="Messages" EntityType="Self.Message" />
-          <AssociationSet Name="FK__Message__Sender___276EDEB3" Association="Self.FK__Message__Sender___276EDEB3">
-            <End Role="Account" EntitySet="Accounts" />
-            <End Role="Message" EntitySet="Messages" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Message__Convers__286302EC" Association="Self.FK__Message__Convers__286302EC">
-            <End Role="Conversation" EntitySet="Conversations" />
-            <End Role="Message" EntitySet="Messages" />
-          </AssociationSet>
-          <AssociationSet Name="Account_Conversation" Association="Self.Account_Conversation">
-            <End Role="Conversation" EntitySet="Conversations" />
-            <End Role="Account" EntitySet="Accounts" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -198,37 +283,46 @@
           <EntitySetMapping Name="Accounts">
             <EntityTypeMapping TypeName="DrocsidDbModel.Account">
               <MappingFragment StoreEntitySet="Account">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Conversations">
             <EntityTypeMapping TypeName="DrocsidDbModel.Conversation">
               <MappingFragment StoreEntitySet="Conversation">
-                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Messages">
             <EntityTypeMapping TypeName="DrocsidDbModel.Message">
               <MappingFragment StoreEntitySet="Message">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Sender_ID" ColumnName="Sender_ID" />
-                <ScalarProperty Name="Conversation_ID" ColumnName="Conversation_ID" />
-                <ScalarProperty Name="Content" ColumnName="Content" />
                 <ScalarProperty Name="SendDate" ColumnName="SendDate" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Conversation_ID" ColumnName="Conversation_ID" />
+                <ScalarProperty Name="Sender_ID" ColumnName="Sender_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PendingFriendInvitations">
+            <EntityTypeMapping TypeName="DrocsidDbModel.PendingFriendInvitation">
+              <MappingFragment StoreEntitySet="PendingFriendInvitation">
+                <ScalarProperty Name="Receiver_ID" ColumnName="Receiver_ID" />
+                <ScalarProperty Name="Sender_ID" ColumnName="Sender_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <AssociationSetMapping Name="Account_Conversation" TypeName="DrocsidDbModel.Account_Conversation" StoreEntitySet="Account_Conversation">
-            <EndProperty Name="Conversation">
-              <ScalarProperty Name="ID" ColumnName="Conversation_ID" />
-            </EndProperty>
             <EndProperty Name="Account">
               <ScalarProperty Name="ID" ColumnName="Member_ID" />
+            </EndProperty>
+            <EndProperty Name="Conversation">
+              <ScalarProperty Name="ID" ColumnName="Conversation_ID" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>

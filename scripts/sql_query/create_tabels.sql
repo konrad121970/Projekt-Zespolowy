@@ -29,3 +29,10 @@ CREATE TABLE Account_Conversation (
 
     PRIMARY KEY (Member_ID, Conversation_ID),
 );
+
+CREATE TABLE PendingFriendInvitation (
+	ID                  INT                 NOT NULL        PRIMARY KEY IDENTITY,
+	
+	Sender_ID           INT                 NOT NULL        FOREIGN KEY REFERENCES Account(ID),
+	Receiver_ID         INT                 NOT NULL        FOREIGN KEY REFERENCES Account(ID),
+);

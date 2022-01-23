@@ -182,7 +182,7 @@
                     <Border Background="Transparent"
                                         Grid.Column="1">
 
-                        <TextBlock Text="Bartosz#027"
+                        <TextBlock Text="{Binding CurrentUser.Id}"
                                    Padding="10,0,0,0"
                                    VerticalAlignment="Center"
                                    Foreground="White"/>

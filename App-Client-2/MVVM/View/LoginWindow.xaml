@@ -161,7 +161,7 @@
                     FontWeight="Bold"
                     FontSize="13"
                     Command="{Binding LoginCommand}"
-                    CommandParameter="{Binding ElementName=PasswordTextBox}" Click="LoginButton_Click">
+                    CommandParameter="{Binding ElementName=PasswordTextBox}">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="8"/>

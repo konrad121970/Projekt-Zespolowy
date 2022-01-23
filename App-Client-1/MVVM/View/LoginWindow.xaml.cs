@@ -40,14 +40,6 @@ namespace ClientApp.MVVM.View {
         private void CloseWindowButton_Click(object sender, RoutedEventArgs e) {
             Application.Current.Shutdown();
         }
-
-
-        private void LoginButton_Click(object sender, RoutedEventArgs e) {
-            var chatWindow = new MainWindow();
-            chatWindow.Show();
-
-            Close();
-        }
     }
 
 }

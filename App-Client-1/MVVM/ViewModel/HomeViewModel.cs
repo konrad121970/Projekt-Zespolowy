@@ -12,17 +12,20 @@ using Network;
 using Network.DataTransfer.Notification;
 using Network.DataTransfer.Request;
 
-namespace ClientApp.MVVM.ViewModel {
-
-    class HomeViewModel : ObservableObject {
-        public HomeViewModel() {
+namespace ClientApp.MVVM.ViewModel
+{
+    class HomeViewModel : ObservableObject
+    {
+        public HomeViewModel()
+        {
             AddToFriendList = new ObservableCollection<User>();
             Client.Instance.NotificationReceived += OnNotificationReceived;
 
-            AcceptFriendCommand = new RelayCommand(obj => {
+            AcceptFriendCommand = new RelayCommand(obj=>
+            {
                 var user = obj as User;
 
-                Client.Instance.SendRequest(new AcceptFriendRequest() {
+                Client.Instance.SendRequest(new AcceptFriendRequest() { 
                     UserID = Client.Data.UserID,
                     FriendID = user.Id
                 });
@@ -31,12 +34,14 @@ namespace ClientApp.MVVM.ViewModel {
                 FriendList.Add(user);
             });
 
-            DeclineFriendCommand = new RelayCommand(obj => {
+            DeclineFriendCommand = new RelayCommand(obj =>
+            {
                 var user = (obj as User);
                 AddToFriendList.Remove(user);
             });
 
-            SendInvitationCommand = new RelayCommand(obj => {
+            SendInvitationCommand = new RelayCommand(obj => 
+            {
                 Client.Instance.SendRequest(new AddFriendRequest() {
                     UserID = Client.Data.UserID,
                     FriendID = SearchBox
@@ -71,11 +76,14 @@ namespace ClientApp.MVVM.ViewModel {
         public ObservableCollection<User> AddToFriendList { get; set; }
         public ObservableCollection<User> FriendList { get; set; }
 
-        public string SearchBox {
-            get {
+        public string SearchBox
+        {
+            get
+            {
                 return _searchBox;
             }
-            set {
+            set
+            {
                 _searchBox = value;
                 OnPropertyChanged();
             }
@@ -87,5 +95,4 @@ namespace ClientApp.MVVM.ViewModel {
         public RelayCommand DeclineFriendCommand { get; set; }
         public RelayCommand SendInvitationCommand { get; set; }
     }
-
 }

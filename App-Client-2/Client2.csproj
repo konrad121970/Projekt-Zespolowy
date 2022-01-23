@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F986E978-90B2-43EE-A180-E3B7162373B4}</ProjectGuid>
+    <ProjectGuid>{50CA1276-EB08-4411-B460-12F728C0151A}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>ClientApp</RootNamespace>
     <AssemblyName>ClientApp2</AssemblyName>
@@ -24,7 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <OutputPath>$(SolutionDir)Build\Debug\bin\$(AssemblyName)</OutputPath>
+    <OutputPath>..\Build\Debug\bin\ClientApp2\</OutputPath>
     <IntermediateOutputPath>$(SolutionDir)Build\Debug\obj\$(AssemblyName)</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -139,14 +139,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Icons\logo.png" />
+    <Resource Include="Icons\send.png" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Network\Network.csproj">
       <Project>{37bca38a-b2f6-49f8-a08b-f8ab19e56d93}</Project>
       <Name>Network</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icons\logo.png" />
-    <Resource Include="Icons\send.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

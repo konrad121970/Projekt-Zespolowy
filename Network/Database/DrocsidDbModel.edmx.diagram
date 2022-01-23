@@ -4,13 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="492d3cc4bf64473daf66c5fef352d328" Name="Diagram1">
-        <EntityTypeShape EntityType="DrocsidDbModel.Account" Width="1.5" PointX="0.625" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DrocsidDbModel.Conversation" Width="1.5" PointX="0.625" PointY="3.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DrocsidDbModel.Message" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
-        <AssociationConnector Association="DrocsidDbModel.FK__Message__Sender___276EDEB3" ManuallyRouted="false" />
-        <AssociationConnector Association="DrocsidDbModel.FK__Message__Convers__286302EC" ManuallyRouted="false" />
-        <AssociationConnector Association="DrocsidDbModel.Account_Conversation" ManuallyRouted="false" />
+      <Diagram DiagramId="492d3cc4bf64473daf66c5fef352d328" Name="Diagram1" ZoomLevel="92">
+        <EntityTypeShape EntityType="DrocsidDbModel.Account" Width="1.5" PointX="5.375" PointY="5.25" />
+        <EntityTypeShape EntityType="DrocsidDbModel.Conversation" Width="1.5" PointX="5.25" PointY="2.375" />
+        <EntityTypeShape EntityType="DrocsidDbModel.Message" Width="1.5" PointX="2" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrocsidDbModel.PendingFriendInvitation" Width="1.5" PointX="8.125" PointY="5.375" IsExpanded="true" />
+        <AssociationConnector Association="DrocsidDbModel.FK__Message__Sender___276EDEB3" />
+        <AssociationConnector Association="DrocsidDbModel.FK__PendingFr__Recei__300424B4" />
+        <AssociationConnector Association="DrocsidDbModel.FK__PendingFr__Sende__2F10007B" ></AssociationConnector>
+        <AssociationConnector Association="DrocsidDbModel.FK__Message__Convers__286302EC" />
+        <AssociationConnector Association="DrocsidDbModel.Account_Conversation" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

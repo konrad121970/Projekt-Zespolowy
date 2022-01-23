@@ -16,36 +16,31 @@ namespace ClientApp.MVVM.ViewModel {
 
     class MainViewModel : ObservableObject {
         public MainViewModel() {
-            
+            CurrentUser = new User();
+            CurrentUser.Id = Client.Data.UserID;
+
             FriendList = new ObservableCollection<User>();
 
-            FriendList.Add(new User 
-            {
-                Id ="Mariusz#1862"
-            });
+            foreach (var friend_id in Client.Data.FriendList) {
+                FriendList.Add(new User {
+                    Id = friend_id
+                });
+            }
 
-            FriendList.Add(new User
-            {
-                Id = "Darek#1862"
-            });
-
-            FriendList.Add(new User
-            {
-                Id = "Szpaq#1862"
-            });
-
-            ChatViewCommand = new RelayCommand(obj=> 
-            {
+            ChatViewCommand = new RelayCommand(obj => {
                 var user = (obj as User);
+
                 ChatVM = new ChatViewModel();
                 ChatVM.CurrentUser = user;
+
                 CurrentView = ChatVM;
             });
 
-            HomeViewCommand = new RelayCommand(obj => 
-            {
-                HomeVM = new HomeViewModel();
-                HomeVM.FriendList = FriendList;
+            HomeViewCommand = new RelayCommand(obj => {
+                HomeVM = new HomeViewModel() {
+                    FriendList = FriendList
+                };
+
                 CurrentView = HomeVM;
             });
         }
@@ -60,6 +55,8 @@ namespace ClientApp.MVVM.ViewModel {
         public ChatViewModel ChatVM { get; set; }
         public HomeViewModel HomeVM { get; set; }
 
+
+        public User CurrentUser { get; set; }
         public ObservableCollection<User> FriendList { get; set; }
  
 

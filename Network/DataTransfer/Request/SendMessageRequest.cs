@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Network.Database;
+
 using Network.DataTransfer.Response;
 using Network.DataTransfer.Notification;
 
@@ -14,14 +15,12 @@ namespace Network.DataTransfer.Request {
     [Serializable]
     public class SendMessageRequest : BaseRequest {
         internal override RequestResult Process(TcpClient client) {
+            var notification_receivers = new List<TcpClient>();
             var receiver = Server.Data.ConnectedClients.Find(p => (p.UserID == ReceiverID));
 
-            if(receiver == null) {
-                return new RequestResult();
+            if(receiver != null) {
+                notification_receivers.Add(receiver.Client);
             }
-
-            var notification_receivers = new List<TcpClient>();
-            notification_receivers.Add(receiver.Client);
             
             var notification_data = new SendMessageNotification() {
                 SenderID = this.SenderID,
@@ -34,14 +33,23 @@ namespace Network.DataTransfer.Request {
             };
 
             using (var db = new DrocsidDbContext()) {
-                var account_list = db.Accounts.ToList();
-                var account = account_list.Find(p => (p.Username == SenderID));
+                var account = db.Accounts.Where(p => (p.Username == SenderID)).First();
+                var account_id = account.ID;
+
+                var sender_account = db.Accounts.Where(p => (p.Username == SenderID)).First();
+                var sender_conversations = sender_account.Conversations;
+
+                var receiver_account = db.Accounts.Where(p => (p.Username == ReceiverID)).First();
+                var receiver_conversations = receiver_account.Conversations;
+
+                var conversation = sender_conversations.Intersect(receiver_conversations).First();
+                var conversation_id = conversation.ID;
 
                 db.Messages.Add(new Message() { 
-                    Sender_ID = account.ID,
-                    Conversation_ID = 1,
-                    Content = MessageContent,
+                    Sender_ID = account_id,
+                    Conversation_ID = conversation_id,
 
+                    Content = MessageContent,
                     SendDate = DateTime.Now
                 });
 

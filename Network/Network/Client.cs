@@ -133,6 +133,7 @@ namespace Network {
         public class Data {
             // User data (received from server)
             public static string UserID { get; set; }
+            public static List<string> FriendList { get; set; }
 
             // Connection data
             internal static TcpClient Server { get; set; }

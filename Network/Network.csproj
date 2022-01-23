@@ -140,12 +140,20 @@
     <Compile Include="Database\Message.cs">
       <DependentUpon>DrocsidDbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database\PendingFriendInvitation.cs">
+      <DependentUpon>DrocsidDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataTransfer\Notification\AcceptFriendNotification.cs" />
+    <Compile Include="DataTransfer\Notification\AddFriendNotification.cs" />
     <Compile Include="DataTransfer\Notification\LoginNotification.cs" />
     <Compile Include="DataTransfer\Notification\SendMessageNotification.cs" />
     <Compile Include="DataTransfer\Notification\_Notification.cs" />
+    <Compile Include="DataTransfer\Request\AcceptFriendRequest.cs" />
+    <Compile Include="DataTransfer\Request\AddFriendRequest.cs" />
     <Compile Include="DataTransfer\Request\LoginRequest.cs" />
     <Compile Include="DataTransfer\Request\SendMessageRequest.cs" />
     <Compile Include="DataTransfer\Request\_Request.cs" />
+    <Compile Include="DataTransfer\Response\AddFriendResponse.cs" />
     <Compile Include="DataTransfer\Response\LoginResponse.cs" />
     <Compile Include="DataTransfer\Response\SendMessageResponse.cs" />
     <Compile Include="DataTransfer\Response\_Response.cs" />
