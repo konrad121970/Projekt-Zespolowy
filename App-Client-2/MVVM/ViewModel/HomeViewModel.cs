@@ -31,6 +31,11 @@ namespace ClientApp.MVVM.ViewModel
                 var user = (obj as User);
                 AddToFriendList.Remove(user);
             });
+
+            SendInvitationCommand = new RelayCommand(obj => 
+            {
+                //fukcja dodaj(SearchBox);
+            });
         }
 
 
@@ -39,9 +44,24 @@ namespace ClientApp.MVVM.ViewModel
 
         public ObservableCollection<User> FriendList { get; set; }
 
+        public string SearchBox
+        {
+            get
+            {
+                return _searchBox;
+            }
+            set
+            {
+                _searchBox = value;
+                OnPropertyChanged();
+            }
+        }
+        private string _searchBox;
+
         //Commands
 
         public RelayCommand AcceptFriendCommand { get; set; }
         public RelayCommand DeclineFriendCommand { get; set; }
+        public RelayCommand SendInvitationCommand { get; set; }
     }
 }

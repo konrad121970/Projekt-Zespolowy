@@ -10,15 +10,48 @@
         
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <!--Pasek nazwy-->
+        <Grid MaxWidth="1000">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="150"/>
+            </Grid.ColumnDefinitions>
+            <Border Background="Transparent">
+                <TextBox  VerticalContentAlignment="Center"
+                          HorizontalAlignment="Stretch"
+                          Background="#3e4147"
+                          TextWrapping="Wrap"
+                          BorderThickness="0"
+                          Foreground="Gray"
+                          CaretBrush="Gray"
+                          Margin="5,5,5,0"
+                          Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="8"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+
+            </Border>
+            <Border Background="Transparent"
+                    Grid.Column="1">
+                <Button Content="Dodaj"
+                        Margin="5"
+                        FontSize="20"/>
+
+            </Border>
+        </Grid>
         <Label Content="Zaproszenia do znajomych"
                Foreground="White"
                FontSize="25"
                VerticalAlignment="Center"
-               HorizontalAlignment="Center"/>
+               HorizontalAlignment="Center"
+               Grid.Row="1"/>
 
         <!--Lista powiadomień dodania do znajomych-->
         <ListBox x:Name="MyItems"
@@ -29,7 +62,7 @@
                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
                  ScrollViewer.CanContentScroll="False"
                  HorizontalContentAlignment="Stretch"
-                 Grid.Row="1">
+                 Grid.Row="2">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Height="40"
