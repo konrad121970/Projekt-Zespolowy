@@ -150,10 +150,12 @@
     <Compile Include="DataTransfer\Notification\_Notification.cs" />
     <Compile Include="DataTransfer\Request\AcceptFriendRequest.cs" />
     <Compile Include="DataTransfer\Request\AddFriendRequest.cs" />
+    <Compile Include="DataTransfer\Request\GetMessageHistoryRequest.cs" />
     <Compile Include="DataTransfer\Request\LoginRequest.cs" />
     <Compile Include="DataTransfer\Request\SendMessageRequest.cs" />
     <Compile Include="DataTransfer\Request\_Request.cs" />
     <Compile Include="DataTransfer\Response\AddFriendResponse.cs" />
+    <Compile Include="DataTransfer\Response\GetMessageHistoryResponse.cs" />
     <Compile Include="DataTransfer\Response\LoginResponse.cs" />
     <Compile Include="DataTransfer\Response\SendMessageResponse.cs" />
     <Compile Include="DataTransfer\Response\_Response.cs" />

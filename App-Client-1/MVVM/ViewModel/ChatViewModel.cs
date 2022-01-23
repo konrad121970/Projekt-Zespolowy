@@ -6,18 +6,28 @@ using System.Text;
 using System.Threading.Tasks;
 using ClientApp.Core;
 using ClientApp.MVVM.Model;
-using Network;
-using Network.DataTransfer.Notification;
-using Network.DataTransfer.Request;
 
-namespace ClientApp.MVVM.ViewModel
-{
+using Network;
+using Network.DataTransfer.Request;
+using Network.DataTransfer.Response;
+using Network.DataTransfer.Notification;
+
+namespace ClientApp.MVVM.ViewModel {
+
     class ChatViewModel : ObservableObject
     {
-        public ChatViewModel()
+        public ChatViewModel(User user)
         {
-            Client.Instance.NotificationReceived += OnNotificationReceived;
             Messages = new ObservableCollection<Message>();
+            CurrentUser = user;
+
+            Client.Instance.ResponseReceived += OnResponseReceived;
+            Client.Instance.NotificationReceived += OnNotificationReceived;
+
+            Client.Instance.SendRequest(new GetMessageHistoryRequest() { 
+                UserID = Client.Data.UserID,
+                FriendID = CurrentUser.Id
+            });
 
             SendMessageCommand = new RelayCommand(obj => {
                 var message = new Message();
@@ -33,6 +43,22 @@ namespace ClientApp.MVVM.ViewModel
 
                 Messages.Add(message);
                 Message = "";
+            });
+        }
+
+        // Response event handling
+        void OnResponseReceived(object sender, BaseResponse response) {
+            var dispatcher = new ResponseDispatcher(response);
+            dispatcher.Dispatch<GetMessageHistoryResponse>(OnGetMessageHistoryResponse);
+        }
+
+        void OnGetMessageHistoryResponse(GetMessageHistoryResponse response) {
+            App.Current.Dispatcher.Invoke(delegate {
+                foreach (var message in response.Messages) {
+                    Messages.Add(new Message() {
+                        Content = message
+                    });
+                }
             });
         }
 
@@ -74,4 +100,5 @@ namespace ClientApp.MVVM.ViewModel
 
         private string _Message;
     }
+
 }

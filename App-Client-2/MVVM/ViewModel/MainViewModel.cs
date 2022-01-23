@@ -30,9 +30,7 @@ namespace ClientApp.MVVM.ViewModel {
             ChatViewCommand = new RelayCommand(obj => {
                 var user = (obj as User);
 
-                ChatVM = new ChatViewModel();
-                ChatVM.CurrentUser = user;
-
+                ChatVM = new ChatViewModel(user);
                 CurrentView = ChatVM;
             });
 
