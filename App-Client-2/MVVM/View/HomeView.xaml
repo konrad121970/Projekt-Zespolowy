@@ -96,7 +96,7 @@
                                 Command="{Binding ElementName=MyItems, Path=DataContext.AcceptFriendCommand}"
                                 CommandParameter="{Binding}"
                                 Grid.Column="1">
-                            <Image Source="/Icons/logo.png"
+                            <Image Source="/Icons/add.png"
                                    Width="20" Height="20"
                                    RenderOptions.BitmapScalingMode="Fant"/>
                         </Button>
@@ -110,8 +110,8 @@
                                 Command="{Binding ElementName=MyItems, Path=DataContext.DeclineFriendCommand}"
                                 CommandParameter="{Binding}"
                                 Grid.Column="2">
-                            <Image Source="/Icons/logo.png"
-                                   Width="20" Height="20"
+                            <Image Source="/Icons/delete.png"
+                                   Width="15" Height="15"
                                    RenderOptions.BitmapScalingMode="Fant"/>
                         </Button>
 
