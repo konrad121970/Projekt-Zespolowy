@@ -16,54 +16,66 @@ namespace ClientApp.MVVM.ViewModel {
 
     class MainViewModel : ObservableObject {
         public MainViewModel() {
-            Client.Instance.NotificationReceived += OnNotificationReceived;
-            Messages = new ObservableCollection<Message>();
+            
+            FriendList = new ObservableCollection<User>();
 
-            SendMessageCommand = new RelayCommand(obj => {
-                var message = new Message();
-                message.Content = Message;
+            FriendList.Add(new User 
+            {
+                Id ="Mariusz#1862"
+            });
 
-                Client.Instance.SendRequest(new SendMessageRequest() { 
-                    SenderID = Client.Data.UserID,
-                    ReceiverID = "pudzian028",
-                    MessageContent = Message
-                });
+            FriendList.Add(new User
+            {
+                Id = "Darek#1862"
+            });
 
-                Messages.Add(message);
-                Message = "";
+            FriendList.Add(new User
+            {
+                Id = "Szpaq#1862"
+            });
+
+            ChatViewCommand = new RelayCommand(obj=> 
+            {
+                var user = (obj as User);
+                ChatVM = new ChatViewModel();
+                ChatVM.CurrentUser = user;
+                CurrentView = ChatVM;
+            });
+
+            HomeViewCommand = new RelayCommand(obj => 
+            {
+                HomeVM = new HomeViewModel();
+                HomeVM.FriendList = FriendList;
+                CurrentView = HomeVM;
             });
         }
 
-        // Notification event handling
-        private void OnNotificationReceived(object sender, BaseNotification notification) {
-            var dispatcher = new NotificationDispatcher(notification);
-            dispatcher.Dispatch<SendMessageNotification>(OnSendMessageNotification);
-        }
-        private void OnSendMessageNotification(SendMessageNotification notification) {
-            App.Current.Dispatcher.Invoke(delegate {
-                Messages.Add(new Message() {
-                    Content = notification.MessageContent
-                });
-            });
-        }
+        //Commands
 
-        // Commands
-        public RelayCommand SendMessageCommand { get; set; }
+        public RelayCommand ChatViewCommand { get; set; }
+        public RelayCommand HomeViewCommand { get; set; }
 
         // Properties
-        public ObservableCollection<Message> Messages { get; set; }
 
-        public string Message {
-            get { 
-                return _Message; 
+        public ChatViewModel ChatVM { get; set; }
+        public HomeViewModel HomeVM { get; set; }
+
+        public ObservableCollection<User> FriendList { get; set; }
+ 
+
+        public object CurrentView
+        {
+            get
+            {
+                return _currentView;
             }
-            set {
-                _Message = value;
+            set
+            {
+                _currentView = value;
                 OnPropertyChanged();
             }
         }
-
-        private string _Message;
+        private object _currentView;
     }
 
 }

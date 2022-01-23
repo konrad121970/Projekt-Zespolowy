@@ -7,6 +7,7 @@
         xmlns:viewmodel="clr-namespace:ClientApp.MVVM.ViewModel"
         mc:Ignorable="d"
         Height="450" Width="800"
+        MinHeight="450" MinWidth="800"
         Background="#36393F"
         WindowStyle="None"
         AllowsTransparency="True"
@@ -36,8 +37,7 @@
             <Grid HorizontalAlignment="Stretch">
                 <Label Content="Drocsid2"
                         Foreground="Gray"
-                        FontWeight="SemiBold"
-                        />
+                        FontWeight="SemiBold"/>
 
                 <StackPanel HorizontalAlignment="Right"
                             Orientation="Horizontal">
@@ -76,74 +76,139 @@
         <Grid Grid.Row="1"
               Background="#2f3136">
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-        </Grid>
-
-        <!--czat itp-->
-        <Grid Grid.Column ="1"
-              Grid.Row="1">
-            <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition/>
-                <RowDefinition Height="70"/>
+                <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
+            
+            <!--Górny pasek lewego panelu-->
+            <Border Background="Transparent"
+                    Grid.Row="0"
+                    BorderBrush="Gray"
+                    BorderThickness="0,0,0,1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
 
-            <!--górny pasek później nazwa użytkownika-->
-            <Border>
-                <Grid HorizontalAlignment="Stretch"
-                      Margin="8">
-                    <Label Content="@Mariusz Pudzianowski"
-                           Foreground="White"
-                           FontWeight="Bold"
-                           Margin="5,0,5,0"
-                           VerticalAlignment="Center">
-                    </Label>
-                </Grid>
-            </Border>
-
-            <!--widok wysłanych wiadomosci-->
-            <ListView Grid.Row="1" 
-                      Background="Transparent"
-                      BorderThickness="0"
-                      Margin="8,0,0,0"
-                      ItemContainerStyle="{StaticResource ChatItem}"
-                      ItemsSource="{Binding Messages}">
-            </ListView>
-
-            <!--do wysyłania widomości-->
-            <Grid Grid.Row="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="90"/>
-                </Grid.ColumnDefinitions>
-
-                <TextBox Grid.Row="1"
-                         Height="50"
-                         Grid.ColumnSpan="2"
-                         Style="{StaticResource MessageBox}"/>
-
-                <StackPanel Orientation="Horizontal"
-                            HorizontalAlignment="Right"
-                            Grid.Column="1"
-                            Margin="0,0,16,0">
                     <Button Width="25" Height="25"
                             BorderThickness="0"
                             Foreground="Gray"
                             FontWeight="Bold"
                             Margin="0,0,0,3"
                             Background="Transparent"
-                            Command="{Binding SendMessageCommand}">
-                        <Image Source="/Icons/send.png"
-                               Width="20" Height="20"
-                               RenderOptions.BitmapScalingMode="Fant"/>
+                            Command="{Binding HomeViewCommand}"
+                            Grid.Column="2">
+                        <Image Source="/Icons/logo.png"
+                           Width="20" Height="20"
+                           RenderOptions.BitmapScalingMode="Fant"/>
+                    </Button>  
+
+                </Grid>
+            </Border>
+            <!--Środkowy pasek lewego panelu-->
+            <Border Background="Transparent"
+                    Grid.Row="1">
+                <ListBox x:Name="MyItems"
+                         ItemsSource="{Binding FriendList}"
+                         Background="Transparent"
+                         BorderBrush="Transparent"
+                         ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                         ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                         ScrollViewer.CanContentScroll="False"
+                         HorizontalContentAlignment="Stretch">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Height="40"
+                                  HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Ellipse Width="25"
+                                         Height="25"
+                                         Fill="Green"/>
+
+                                <Border Background="Transparent"
+                                        Grid.Column="1">
+
+                                    <TextBlock Text="{Binding Id}"
+                                               Padding="10,0,0,0"
+                                               VerticalAlignment="Center"
+                                               Foreground="White"/>
+
+                                </Border>
+
+                                <Grid.InputBindings>
+                                    <MouseBinding Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}, Path=DataContext.ChatViewCommand}"       
+                                          Gesture="LeftClick"
+                                          CommandParameter="{Binding}"/>
+                                </Grid.InputBindings>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                    
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                </ListBox>
+
+
+            </Border>
+
+
+            <!--Dolny pasek lewego panelu-->
+            <Border Background="Transparent"
+                    Grid.Row="2"
+                    BorderBrush="Gray"
+                    BorderThickness="0,1,0,0">
+                <Grid Height="40"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="40"/>
+                    </Grid.ColumnDefinitions>
+                    <Ellipse Width="30"
+                             Height="30"
+                             Fill="Green"/>
+
+                    <Border Background="Transparent"
+                                        Grid.Column="1">
+
+                        <TextBlock Text="Bartosz#027"
+                                   Padding="10,0,0,0"
+                                   VerticalAlignment="Center"
+                                   Foreground="White"/>
+
+                    </Border>
+                    <Button Width="25" Height="25"
+                            BorderThickness="0"
+                            Foreground="Gray"
+                            FontWeight="Bold"
+                            Margin="0,0,0,3"
+                            Background="Transparent"
+                            Command="{Binding}"
+                            Grid.Column="2">
+                        <Image Source="/Icons/logo.png"
+                           Width="20" Height="20"
+                           RenderOptions.BitmapScalingMode="Fant"/>
                     </Button>
-                </StackPanel>
 
-            </Grid>
-
+                </Grid>
+            </Border>
         </Grid>
+        
+
+        <!--czat itp-->
+        <ContentControl Grid.Row="1"
+                        Grid.Column="1"
+                        Content="{Binding CurrentView}"/>
     </Grid>
 </Window>
