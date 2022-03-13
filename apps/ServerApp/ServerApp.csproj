@@ -63,7 +63,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\libs\ServerLib\Network.Server.csproj">
+    <ProjectReference Include="..\..\libs\Network.Server\Network.Server.csproj">
       <Project>{cc51b578-bbb9-4601-9057-6415428a3df6}</Project>
       <Name>Network.Server</Name>
     </ProjectReference>

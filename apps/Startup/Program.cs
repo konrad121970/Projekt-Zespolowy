@@ -5,16 +5,25 @@
 
     class Program {
         static void Main(string[] args) {
-            Process.Start("ServerApp.exe");
+            var processes = new Process[CLIENT_APP_COUNT + 1];
+            processes[0] = Process.Start("ServerApp.exe");
 
-            for(int i = 0; i < 2; i++) {
-                Process.Start("ClientApp.exe");
+            for(int i = 1; i <= CLIENT_APP_COUNT; i++) {
+                processes[i] = Process.Start("ClientApp.exe");
             }
 
-            while(true) {
-                Thread.Sleep(5000);
+            while(!processes[0].HasExited) {
+                Thread.Sleep(1000);
+            }
+
+            foreach(var process in processes) {
+                if(!process.HasExited) {
+                    process.Kill();
+                }
             }
         }
+
+        static int CLIENT_APP_COUNT = 2;
     }
 
 }

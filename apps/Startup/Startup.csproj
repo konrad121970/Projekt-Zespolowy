@@ -81,16 +81,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\App-Client\ClientApp.csproj">
-      <Project>{02f220bf-9f61-4bd4-a59b-a427c701abf7}</Project>
-      <Name>ClientApp</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\App-Server\ServerApp.csproj">
-      <Project>{c1f69ec4-5ab2-4f2a-a383-95a667f98196}</Project>
-      <Name>ServerApp</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
@@ -101,6 +91,16 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ClientApp\ClientApp.csproj">
+      <Project>{02f220bf-9f61-4bd4-a59b-a427c701abf7}</Project>
+      <Name>ClientApp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServerApp\ServerApp.csproj">
+      <Project>{c1f69ec4-5ab2-4f2a-a383-95a667f98196}</Project>
+      <Name>ServerApp</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
