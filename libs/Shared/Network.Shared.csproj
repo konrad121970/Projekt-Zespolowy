@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1699265F-9187-4A50-BB3D-3DC3E6D48161}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Network.Shared</RootNamespace>
+    <AssemblyName>Network.Shared</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>$(SolutionDir)build\Debug\bin\_Dependencies\$(AssemblyName)</OutputPath>
+    <IntermediateOutputPath>$(SolutionDir)build\Debug\obj\_Dependencies\$(AssemblyName)</IntermediateOutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>$(SolutionDir)build\Release\bin\_Dependencies\$(AssemblyName)</OutputPath>
+    <IntermediateOutputPath>$(SolutionDir)build\Release\obj\_Dependencies\$(AssemblyName)</IntermediateOutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Core\Serializer.cs" />
+    <Compile Include="DataTransfer\Accept_Friend_Invitation\AcceptFriendInvitationNotification.cs" />
+    <Compile Include="DataTransfer\Send_Friend_Invitation\SendFriendInvitationNotification.cs" />
+    <Compile Include="DataTransfer\Send_Message_To_Friend\SendMessageToFriendNotification.cs" />
+    <Compile Include="DataTransfer\_Base\BaseNotification.cs" />
+    <Compile Include="DataTransfer\Accept_Friend_Invitation\AcceptFriendInvitationRequest.cs" />
+    <Compile Include="DataTransfer\Send_Friend_Invitation\SendFriendInvitationRequest.cs" />
+    <Compile Include="DataTransfer\Get_Conversation_History\GetConversationHistoryRequest.cs" />
+    <Compile Include="DataTransfer\Log_In_To_Account\LogInToAccountRequest.cs" />
+    <Compile Include="DataTransfer\Send_Message_To_Friend\SendMessageToFriendRequest.cs" />
+    <Compile Include="DataTransfer\_Base\BaseRequest.cs" />
+    <Compile Include="DataTransfer\Get_Conversation_History\GetConversationHistoryResponse.cs" />
+    <Compile Include="DataTransfer\Log_In_To_Account\LogInToAccountResponse.cs" />
+    <Compile Include="DataTransfer\_Base\BaseResponse.cs" />
+    <Compile Include="DataTransfer\_Template\TemplateNotification.cs" />
+    <Compile Include="DataTransfer\_Template\TemplateResponse.cs" />
+    <Compile Include="DataTransfer\_Template\TemplateRequest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
