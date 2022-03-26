@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="bdba66b175cf4563ad3bf08bee5d7354" Name="Diagram1">
+      <Diagram DiagramId="cb7c012277a848c98afa4a7fe85fb1f2" Name="Diagram1">
         <EntityTypeShape EntityType="DrocsidDbModel.Account" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DrocsidDbModel.Conversation" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
         <EntityTypeShape EntityType="DrocsidDbModel.Message" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />

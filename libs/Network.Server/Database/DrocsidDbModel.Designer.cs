@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Bartosz\source\repos\Projekt-Zespolowy\libs\ServerLib\Database\DrocsidDbModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\Bartosz\source\repos\Projekt-Zespolowy\libs\Network.Server\Database\DrocsidDbModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

@@ -19,8 +19,8 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>$(SolutionDir)build\Debug\bin\_Dependencies\$(AssemblyName)</OutputPath>
-    <IntermediateOutputPath>$(SolutionDir)build\Debug\obj\_Dependencies\$(AssemblyName)</IntermediateOutputPath>
+    <OutputPath>$(SolutionDir)build\Debug\bin\libs\$(AssemblyName)</OutputPath>
+    <IntermediateOutputPath>$(SolutionDir)build\Debug\obj\libs\$(AssemblyName)</IntermediateOutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -29,8 +29,8 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>$(SolutionDir)build\Release\bin\_Dependencies\$(AssemblyName)</OutputPath>
-    <IntermediateOutputPath>$(SolutionDir)build\Release\obj\_Dependencies\$(AssemblyName)</IntermediateOutputPath>
+    <OutputPath>$(SolutionDir)build\Release\bin\libs\$(AssemblyName)</OutputPath>
+    <IntermediateOutputPath>$(SolutionDir)build\Release\obj\libs\$(AssemblyName)</IntermediateOutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -87,8 +87,12 @@
     <Compile Include="Database\PendingFriendInvitation.cs">
       <DependentUpon>DrocsidDbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataProcessing\Account\AccountRequestManager.cs" />
+    <Compile Include="DataProcessing\Friend\FriendRequestManager.cs" />
+    <Compile Include="DataProcessing\Guild\GuildRequestManager.cs" />
+    <Compile Include="DataProcessing\Test\TestRequestManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DataProcessing\RequestCommand.cs" />
+    <Compile Include="DataProcessing\RequestManager.cs" />
     <Compile Include="DataProcessing\RequestDispatcher.cs" />
     <Compile Include="Server.cs" />
   </ItemGroup>
@@ -116,8 +120,8 @@
   <ItemGroup>
     <Content Include="Database\DrocsidDbModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>DrocsidDbModel.Context.cs</LastGenOutput>
       <DependentUpon>DrocsidDbModel.edmx</DependentUpon>
+      <LastGenOutput>DrocsidDbModel.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Database\DrocsidDbModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

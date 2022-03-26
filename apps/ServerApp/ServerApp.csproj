@@ -21,8 +21,8 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>$(SolutionDir)build\Debug\bin\$(AssemblyName)</OutputPath>
-    <IntermediateOutputPath>$(SolutionDir)build\Debug\obj\$(AssemblyName)</IntermediateOutputPath>
+    <OutputPath>$(SolutionDir)build\Debug\bin\apps\$(AssemblyName)</OutputPath>
+    <IntermediateOutputPath>$(SolutionDir)build\Debug\obj\apps\$(AssemblyName)</IntermediateOutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -31,8 +31,8 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>$(SolutionDir)build\Release\bin\$(AssemblyName)</OutputPath>
-    <IntermediateOutputPath>$(SolutionDir)build\Release\obj\$(AssemblyName)</IntermediateOutputPath>
+    <OutputPath>$(SolutionDir)build\Release\bin\apps\$(AssemblyName)</OutputPath>
+    <IntermediateOutputPath>$(SolutionDir)build\Release\obj\apps\$(AssemblyName)</IntermediateOutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>

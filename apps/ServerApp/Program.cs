@@ -1,7 +1,7 @@
-﻿namespace ServerApp {
+﻿using Network;
+using Network.Server;
 
-    using Network;
-    using Network.Server;
+namespace ServerApp {
 
     class Program {
         static void Main(string[] args) {

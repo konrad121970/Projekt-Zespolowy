@@ -6,7 +6,8 @@ using ClientApp.MVVM.Model;
 using Network.Client;
 using Network.Client.DataProcessing;
 
-using Network.Shared.DataTransfer.Base;
+using Network.Shared.DataTransfer.Interface;
+
 using Network.Shared.DataTransfer.Request;
 using Network.Shared.DataTransfer.Notification;
 
@@ -41,7 +42,7 @@ namespace ClientApp.MVVM.ViewModel {
         }
 
         // Notification event handling
-        private void OnNotificationReceived(object sender, BaseNotification notification) {
+        private void OnNotificationReceived(object sender, INotification notification) {
             var dispatcher = new NotificationDispatcher(notification);
             dispatcher.Dispatch<SendFriendInvitationNotification>(OnSendFriendInvitationNotification);
             dispatcher.Dispatch<AcceptFriendInvitationNotification>(OnAcceptFriendInvitationNotification);

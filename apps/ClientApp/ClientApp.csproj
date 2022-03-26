@@ -24,8 +24,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <OutputPath>$(SolutionDir)build\Debug\bin\$(AssemblyName)</OutputPath>
-    <IntermediateOutputPath>$(SolutionDir)build\Debug\obj\$(AssemblyName)</IntermediateOutputPath>
+    <OutputPath>$(SolutionDir)build\Debug\bin\apps\$(AssemblyName)</OutputPath>
+    <IntermediateOutputPath>$(SolutionDir)build\Debug\obj\apps\$(AssemblyName)</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -35,8 +35,8 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <OutputPath>$(SolutionDir)build\Release\bin\$(AssemblyName)</OutputPath>
-    <IntermediateOutputPath>$(SolutionDir)build\Release\obj\$(AssemblyName)</IntermediateOutputPath>
+    <OutputPath>$(SolutionDir)build\Release\bin\apps\$(AssemblyName)</OutputPath>
+    <IntermediateOutputPath>$(SolutionDir)build\Release\obj\apps\$(AssemblyName)</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

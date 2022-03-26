@@ -1,15 +1,13 @@
 ﻿using System;
 
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-
 using System.Net.Sockets;
 
 using System.Threading;
 using System.Threading.Tasks;
 
 using Network.Shared.Core;
-using Network.Shared.DataTransfer.Base;
+using Network.Shared.DataTransfer.Interface;
 
 namespace Network.Client {
 
@@ -26,12 +24,12 @@ namespace Network.Client {
 
 
         public void Connect(string ip, int port) {
-            Client.Data.Server = new TcpClient();
+            Client.Data.TCP = new TcpClient();
 
-            Client.Data.Server.Connect(ip, port);
-            Client.Data.Stream = Client.Data.Server.GetStream();
+            Client.Data.TCP.Connect(ip, port);
+            Client.Data.Stream = Client.Data.TCP.GetStream();
 
-            if (Client.Data.Server.Connected) {
+            if (Client.Data.TCP.Connected) {
                 StartListenerThread();
             }
         }
@@ -41,27 +39,34 @@ namespace Network.Client {
             var cancellation = new CancellationTokenSource();
 
             // Receive data
-            Task.Run(() => {
-                byte[] receive_buffer = new byte[4 * 1024 * 1024]; // 4 MB cache
+            Task.Factory.StartNew(() => {
+                byte[] receive_buffer = new byte[256 * 1024]; // 256 KB cache
                 int buffer_length = 0;
 
                 while (true) {
                     try {
-                        byte[] received_bytes = new byte[Client.Data.Server.Available];
+                        byte[] received_bytes = new byte[Client.Data.TCP.Available];
                         Client.Data.Stream.Read(received_bytes, 0, received_bytes.Length);
 
                         Array.Copy(received_bytes, 0, receive_buffer, buffer_length, received_bytes.Length);
                         buffer_length += received_bytes.Length;
 
-                        // TODO: Replace sleep with better solution
-                        Thread.Sleep(1);
-
-                        if (received_bytes.Length == 0 || Client.Data.Stream.DataAvailable == true) {
-                            continue;
-                        }
-
-                        for (int index = 0, length = 0; index < buffer_length; index += (length + 4)) {
+                        for (int index = 0, length = 0; index <= buffer_length; index += (length + 4)) {
                             length = BitConverter.ToInt32(receive_buffer, index);
+
+                            if (index == buffer_length) {
+                                buffer_length = 0;
+                                break;
+                            }
+
+                            if (index + (length + 4) > buffer_length) {
+                                var new_length = buffer_length - index;
+
+                                Array.Copy(receive_buffer, index, receive_buffer, 0, new_length);
+                                buffer_length = new_length;
+
+                                break;
+                            }
 
                             var data = new byte[length];
                             Array.Copy(receive_buffer, index + 4, data, 0, length);
@@ -71,33 +76,32 @@ namespace Network.Client {
                         }
                     }
                     catch (Exception e) {
-                        if(Client.Data.Server.Connected == false) {
+                        if(Client.Data.TCP.Connected == false) {
                             Console.WriteLine("Disconnected from the server!");
                             cancellation.Cancel();
 
                             break;
                         }
-
-                        Console.WriteLine(e);
+                        else {
+                            Console.WriteLine(e);
+                        }
                     }
-
-                    buffer_length = 0;
                 }
-            });
+            }, TaskCreationOptions.LongRunning);
 
             // Process data
-            Task.Run(() => {
+            Task.Factory.StartNew(() => {
                 while (true) {
                     try {
                         var received_data = received_data_queue.Take(cancellation.Token);
 
                         switch (received_data) {
-                            case BaseResponse: {
-                                ResponseReceived?.Invoke(this, received_data as BaseResponse);
+                            case IResponse: {
+                                ResponseReceived?.Invoke(this, (IResponse)received_data);
                                 break;
                             }
-                            case BaseNotification: {
-                                NotificationReceived?.Invoke(this, received_data as BaseNotification);
+                            case INotification: {
+                                NotificationReceived?.Invoke(this, (INotification)received_data);
                                 break;
                             }
                         }
@@ -106,38 +110,40 @@ namespace Network.Client {
                         if(e is OperationCanceledException) {
                             break;
                         }
-
-                        Console.WriteLine(e);
+                        else {
+                            Console.WriteLine(e);
+                        }
                     }
                 }
-            });
+            }, TaskCreationOptions.LongRunning);
         }
 
 
-        public void SendRequest(BaseRequest request) {
+        public void SendRequest(IRequest request) {
             try {
-               lock (Client.Data.Stream) {
-                    byte[] request_bytes = Serializer.Serialize(request);
-                    Client.Data.Stream.Write(request_bytes, 0, request_bytes.Length);
-                }
+                byte[] request_bytes = Serializer.Serialize(request);
+                Client.Data.Stream.Write(request_bytes, 0, request_bytes.Length);
             }
-            catch { }
+            catch (Exception e) {
+                Console.WriteLine(e);
+            }
         }
 
 
         public class Data {
             // User data (received from server)
             public static string UserID { get; set; }
-            public static List<string> FriendList { get; set; }
+            public static string AccessToken { get; set; }
 
             // Connection data
-            internal static TcpClient Server { get; set; }
+            internal static TcpClient TCP { get; set; }
             internal static NetworkStream Stream { get; set; }
         }
 
         
-        public event EventHandler<BaseResponse> ResponseReceived;
-        public event EventHandler<BaseNotification> NotificationReceived;
+        // Events
+        public event EventHandler<IResponse> ResponseReceived;
+        public event EventHandler<INotification> NotificationReceived;
     }
 
 }

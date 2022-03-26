@@ -1,20 +1,20 @@
 ﻿using System;
-using Network.Shared.DataTransfer.Base;
+using Network.Shared.DataTransfer.Interface;
 
 namespace Network.Client.DataProcessing {
 
     public class NotificationDispatcher {
-        public NotificationDispatcher(BaseNotification notification) {
+        public NotificationDispatcher(INotification notification) {
             _Notification = notification;
         }
 
-        public void Dispatch<T>(Action<T> function) where T : BaseNotification {
+        public void Dispatch<T>(Action<T> function) where T : INotification {
             if (_Notification.GetType() == typeof(T)) {
-                function(_Notification as T);
+                function((T)_Notification);
             }
         }
 
-        private readonly BaseNotification _Notification;
+        private readonly INotification _Notification;
     }
 
 }

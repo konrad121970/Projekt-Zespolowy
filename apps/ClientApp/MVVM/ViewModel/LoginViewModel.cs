@@ -6,12 +6,14 @@ using System.Windows.Controls;
 using Network.Client;
 using Network.Client.DataProcessing;
 
-using Network.Shared.DataTransfer.Base;
+using Network.Shared.DataTransfer.Interface;
+
 using Network.Shared.DataTransfer.Request;
 using Network.Shared.DataTransfer.Response;
 
 using ClientApp.Core;
 using ClientApp.MVVM.View;
+using System.Collections.Generic;
 
 namespace ClientApp.MVVM.ViewModel {
     
@@ -33,6 +35,7 @@ namespace ClientApp.MVVM.ViewModel {
                 }
 
                 var chatWindow = new MainWindow();
+                (chatWindow.DataContext as MainViewModel).SetFriendList(FriendList);
                 chatWindow.Show();
 
                 Application.Current.Windows[0].Close();
@@ -40,7 +43,7 @@ namespace ClientApp.MVVM.ViewModel {
         }
 
         // Response event handling
-        static void OnResponseReceived(object sender, BaseResponse response) {
+        static void OnResponseReceived(object sender, IResponse response) {
             var dispatcher = new ResponseDispatcher(response);
             dispatcher.Dispatch<LogInToAccountResponse>(OnLogInToAccountResponse);
         }
@@ -49,7 +52,7 @@ namespace ClientApp.MVVM.ViewModel {
             MessageBox.Show("Signed in as " + response.UserID);
 
             Client.Data.UserID = response.UserID;
-            Client.Data.FriendList = response.FriendIDs;
+            FriendList = response.FriendIDs;
 
             LoggedIn = true;
         }
@@ -57,6 +60,8 @@ namespace ClientApp.MVVM.ViewModel {
         // Commands
         public RelayCommand LoginCommand { get; set; }
         public static bool LoggedIn = false;
+
+        public static List<string> FriendList = new List<string>();
 
         // Control data
         public string Login {

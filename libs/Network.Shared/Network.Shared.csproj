@@ -18,8 +18,8 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>$(SolutionDir)build\Debug\bin\_Dependencies\$(AssemblyName)</OutputPath>
-    <IntermediateOutputPath>$(SolutionDir)build\Debug\obj\_Dependencies\$(AssemblyName)</IntermediateOutputPath>
+    <OutputPath>$(SolutionDir)build\Debug\bin\libs\$(AssemblyName)</OutputPath>
+    <IntermediateOutputPath>$(SolutionDir)build\Debug\obj\libs\$(AssemblyName)</IntermediateOutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -28,8 +28,8 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>$(SolutionDir)build\Release\bin\_Dependencies\$(AssemblyName)</OutputPath>
-    <IntermediateOutputPath>$(SolutionDir)build\Release\obj\_Dependencies\$(AssemblyName)</IntermediateOutputPath>
+    <OutputPath>$(SolutionDir)build\Release\bin\libs\$(AssemblyName)</OutputPath>
+    <IntermediateOutputPath>$(SolutionDir)build\Release\obj\libs\$(AssemblyName)</IntermediateOutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -52,23 +52,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Serializer.cs" />
-    <Compile Include="DataTransfer\Accept_Friend_Invitation\AcceptFriendInvitationNotification.cs" />
-    <Compile Include="DataTransfer\Send_Friend_Invitation\SendFriendInvitationNotification.cs" />
-    <Compile Include="DataTransfer\Send_Message_To_Friend\SendMessageToFriendNotification.cs" />
-    <Compile Include="DataTransfer\_Base\BaseNotification.cs" />
-    <Compile Include="DataTransfer\Accept_Friend_Invitation\AcceptFriendInvitationRequest.cs" />
-    <Compile Include="DataTransfer\Send_Friend_Invitation\SendFriendInvitationRequest.cs" />
-    <Compile Include="DataTransfer\Get_Conversation_History\GetConversationHistoryRequest.cs" />
-    <Compile Include="DataTransfer\Log_In_To_Account\LogInToAccountRequest.cs" />
-    <Compile Include="DataTransfer\Send_Message_To_Friend\SendMessageToFriendRequest.cs" />
-    <Compile Include="DataTransfer\_Base\BaseRequest.cs" />
-    <Compile Include="DataTransfer\Get_Conversation_History\GetConversationHistoryResponse.cs" />
-    <Compile Include="DataTransfer\Log_In_To_Account\LogInToAccountResponse.cs" />
-    <Compile Include="DataTransfer\_Base\BaseResponse.cs" />
-    <Compile Include="DataTransfer\_Template\TemplateNotification.cs" />
-    <Compile Include="DataTransfer\_Template\TemplateResponse.cs" />
-    <Compile Include="DataTransfer\_Template\TemplateRequest.cs" />
+    <Compile Include="DataTransfer\Temp\Accept_Friend_Invitation\AcceptFriendInvitationNotification.cs" />
+    <Compile Include="DataTransfer\Temp\Accept_Friend_Invitation\AcceptFriendInvitationRequest.cs" />
+    <Compile Include="DataTransfer\Temp\Get_Conversation_History\GetConversationHistoryRequest.cs" />
+    <Compile Include="DataTransfer\Temp\Get_Conversation_History\GetConversationHistoryResponse.cs" />
+    <Compile Include="DataTransfer\Interface\INotification.cs" />
+    <Compile Include="DataTransfer\Interface\IRequest.cs" />
+    <Compile Include="DataTransfer\Interface\IResponse.cs" />
+    <Compile Include="DataTransfer\Temp\Log_In_To_Account\LogInToAccountRequest.cs" />
+    <Compile Include="DataTransfer\Temp\Log_In_To_Account\LogInToAccountResponse.cs" />
+    <Compile Include="DataTransfer\Temp\Send_Friend_Invitation\SendFriendInvitationNotification.cs" />
+    <Compile Include="DataTransfer\Temp\Send_Friend_Invitation\SendFriendInvitationRequest.cs" />
+    <Compile Include="DataTransfer\Temp\Send_Message_To_Friend\SendMessageToFriendNotification.cs" />
+    <Compile Include="DataTransfer\Temp\Send_Message_To_Friend\SendMessageToFriendRequest.cs" />
+    <Compile Include="DataTransfer\Test\Client\ClientTestNotification.cs" />
+    <Compile Include="DataTransfer\Test\Client\ClientTestResponse.cs" />
+    <Compile Include="DataTransfer\Test\Client\ClientTestRequest.cs" />
+    <Compile Include="DataTransfer\Test\Server\ServerTestResultRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DataTransfer\Test\Server\ServerTestPacketRequest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

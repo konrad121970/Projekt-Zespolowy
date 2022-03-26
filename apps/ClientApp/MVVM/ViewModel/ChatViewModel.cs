@@ -1,15 +1,16 @@
-﻿using ClientApp.Core;
+﻿using System.Collections.ObjectModel;
+
+using ClientApp.Core;
 using ClientApp.MVVM.Model;
 
 using Network.Client;
 using Network.Client.DataProcessing;
 
-using Network.Shared.DataTransfer.Base;
-using Network.Shared.DataTransfer.Notification;
+using Network.Shared.DataTransfer.Interface;
+
 using Network.Shared.DataTransfer.Request;
 using Network.Shared.DataTransfer.Response;
-
-using System.Collections.ObjectModel;
+using Network.Shared.DataTransfer.Notification;
 
 namespace ClientApp.MVVM.ViewModel {
 
@@ -42,7 +43,7 @@ namespace ClientApp.MVVM.ViewModel {
         }
 
         // Response event handling
-        void OnResponseReceived(object sender, BaseResponse response) {
+        void OnResponseReceived(object sender, IResponse response) {
             var dispatcher = new ResponseDispatcher(response);
             dispatcher.Dispatch<GetConversationHistoryResponse>(OnGetConversationHistoryResponse);
         }
@@ -58,7 +59,7 @@ namespace ClientApp.MVVM.ViewModel {
         }
 
         // Notification event handling
-        private void OnNotificationReceived(object sender, BaseNotification notification) {
+        private void OnNotificationReceived(object sender, INotification notification) {
             var dispatcher = new NotificationDispatcher(notification);
             dispatcher.Dispatch<SendMessageToFriendNotification>(OnSendMessageToFriendNotification);
         }

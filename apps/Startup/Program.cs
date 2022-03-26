@@ -1,29 +1,69 @@
-﻿namespace Startup {
+﻿using System;
+using System.Diagnostics;
 
-    using System.Diagnostics;
-    using System.Threading;
+namespace Startup {
+
+    enum STARTUP {
+        MAIN_APPLICATION = 0,
+        NETWORK_CLIENT_TEST, NETWORK_SERVER_TEST, BOTH_NETWORK_TESTS
+    }
 
     class Program {
         static void Main(string[] args) {
-            var processes = new Process[CLIENT_APP_COUNT + 1];
-            processes[0] = Process.Start("ServerApp.exe");
+            // Settings
+            var app_type = STARTUP.MAIN_APPLICATION;
+            var client_count = 2;
 
-            for(int i = 1; i <= CLIENT_APP_COUNT; i++) {
-                processes[i] = Process.Start("ClientApp.exe");
+            // Init processes
+            var server_process = Process.Start("ServerApp.exe");
+            var client_processes = new Process[client_count * 2];
+
+            // Start processes
+            for(int i = 0; i < client_count; i++) {
+                switch (app_type) {
+                    case STARTUP.MAIN_APPLICATION: {
+                        client_processes[i] = RunClientServerApplication();
+                        break;
+                    }
+                    case STARTUP.NETWORK_CLIENT_TEST: {
+                        client_processes[i] = RunNetworkClientTest(i + 1);
+                        break;
+                    }
+                    case STARTUP.NETWORK_SERVER_TEST: {
+                        client_processes[i] = RunNetworkServerTest(i + 1);
+                        break;
+                    }
+                    case STARTUP.BOTH_NETWORK_TESTS: {
+                        client_processes[(i * 2) + 0] = RunNetworkClientTest(i + 1);
+                        client_processes[(i * 2) + 1] = RunNetworkServerTest(i + 1);
+                        break;
+                    }
+                }
             }
 
-            while(!processes[0].HasExited) {
-                Thread.Sleep(1000);
-            }
+            // Wait for server process
+            server_process.WaitForExit();
 
-            foreach(var process in processes) {
-                if(!process.HasExited) {
+            // Kill all client processes
+            foreach (var process in client_processes) {
+                if (process != null && process.HasExited == false) {
                     process.Kill();
                 }
             }
         }
 
-        static int CLIENT_APP_COUNT = 2;
+        // Applications
+        static Process RunClientServerApplication() {
+            return Process.Start("ClientApp.exe");
+        }
+
+        static Process RunNetworkClientTest(int id) {
+            return Process.Start("ClientTest.exe", "ClientTestLog" + id + ".txt");
+        }
+
+        static Process RunNetworkServerTest(int id) {
+            return Process.Start("ServerTest.exe", "ServerTestLog" + id + ".txt");
+        }
     }
 
 }

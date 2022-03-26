@@ -1,5 +1,7 @@
 ﻿using System;
+
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 
 using System.Net;
 using System.Net.Sockets;
@@ -11,11 +13,19 @@ using Network.Server.Core;
 using Network.Server.DataProcessing;
 
 using Network.Shared.Core;
-
-using Network.Shared.DataTransfer.Base;
-using Network.Shared.DataTransfer.Request;
+using Network.Shared.DataTransfer.Interface;
 
 namespace Network.Server {
+
+    internal class ClientInfo {
+        // User data
+        public string UserID { get; set; }
+        public string AccessToken { get; set; }
+
+        // Connection data
+        public TcpClient TCP { get; set; }
+        public NetworkStream Stream { get; set; }
+    }
 
     public class Server {
         private Server() {
@@ -54,12 +64,12 @@ namespace Network.Server {
         }
 
         private void StartClientThread(ClientInfo client) {
-            var request_queue = new BlockingCollection<BaseRequest>();
-            var cancellation = new CancellationTokenSource();
+            var request_queue = new BlockingCollection<IRequest>();
+            var cancellation_token = new CancellationTokenSource();
 
             // Receive request
-            Task.Run(() => {
-                byte[] request_buffer = new byte[4 * 1024 * 1024]; // 4 MB cache
+            Task.Factory.StartNew(() => {
+                byte[] request_buffer = new byte[256 * 1024]; // 256 KB cache
                 int buffer_length = 0;
 
                 while (true) {
@@ -70,108 +80,107 @@ namespace Network.Server {
                         Array.Copy(request_bytes, 0, request_buffer, buffer_length, request_bytes.Length);
                         buffer_length += request_bytes.Length;
 
-                        // TODO: Replace sleep with better solution
-                        Thread.Sleep(1);
-
-                        if (request_bytes.Length == 0 || client.Stream.DataAvailable == true) {
-                            continue;
-                        }
-
-                        for (int index = 0, length = 0; index < buffer_length; index += (length + 4)) {
+                        for (int index = 0, length = 0; index <= buffer_length; index += (length + 4)) {
                             length = BitConverter.ToInt32(request_buffer, index);
+
+                            if(index == buffer_length) {
+                                buffer_length = 0;
+                                break;
+                            }
+
+                            if (index + (length + 4) > buffer_length) {
+                                var new_length = buffer_length - index;
+
+                                Array.Copy(request_buffer, index, request_buffer, 0, new_length);
+                                buffer_length = new_length;
+
+                                break;
+                            }
 
                             var data = new byte[length];
                             Array.Copy(request_buffer, index + 4, data, 0, length);
 
-                            var request = Serializer.Deserialize(data) as BaseRequest;
+                            var request = Serializer.Deserialize(data) as IRequest;
                             request_queue.Add(request);
                         }
                     }
                     catch (Exception e) {
                         if(client.TCP.Connected == false) {
-                            var connected_client = Server.Data.Clients.Find(p => (p.TCP == client.TCP));
+                            var client_info = Server.Data.Clients.Find(p => (p.TCP == client.TCP));
 
-                            if (connected_client != null) {
-                                Console.WriteLine("{0} connection lost!", connected_client.UserID);
-                                Server.Data.Clients.Remove(connected_client);
+                            if (client_info != null) {
+                                Console.WriteLine("{0} connection lost!", client_info.UserID);
+                                Server.Data.Clients.Remove(client_info);
                             }
 
-                            cancellation.Cancel();
+                            cancellation_token.Cancel();
                             break;
                         }
-
-                        Console.WriteLine(e);
+                        else {
+                            Console.WriteLine(e);
+                        }
                     }
-
-                    buffer_length = 0;
                 }
-            });
+            }, TaskCreationOptions.LongRunning);
 
             // Process request
-            Task.Run(() => {
+            Task.Factory.StartNew(() => {
                 while (true) {
                     try {
-                        var request = request_queue.Take(cancellation.Token);
-                        RequestResult result = null;
+                        // Dispatch request
+                        var request = request_queue.Take(cancellation_token.Token);
+                        var result = RequestManager.Dispatch(request, client);
 
-                        // Check if logged in
-                        if (Server.Data.Clients.Find(p => (p.TCP == client.TCP)) == null) {
-                            if ((request is LogInToAccountRequest) == false) {
-                                continue;
-                            }
-                        }
-
-                        // Process request
-                        result = RequestCommand.Dispatch(request, client);
-
-                        // Send response
-                        if (result.ResponseReceiver != null && result.ResponseData != null) {
-                            Server.SendResponse(result.ResponseReceiver, result.ResponseData);
-                        }
-
-                        // Send notifications
-                        if (result.NotificationReceivers != null && result.NotificationData != null) {
-
-                            foreach (var notification_receiver in result.NotificationReceivers) {
-                                Server.SendNotification(notification_receiver, result.NotificationData);
+                        if(result != null) {
+                            // Send response
+                            if (result.ResponseReceiver != null && result.ResponseData != null) {
+                                Server.SendResponse(result.ResponseReceiver, result.ResponseData);
                             }
 
+                            // Send notifications
+                            if (result.NotificationReceivers != null && result.NotificationData != null) {
+                                Server.BroadcastNotification(result.NotificationReceivers, result.NotificationData);
+                            }
                         }
                     }
                     catch (Exception e) {
                         if (e is OperationCanceledException) {
                             break;
                         }
-
-                        Console.WriteLine(e);
+                        else {
+                            Console.WriteLine(e);
+                        }
                     }
                 }
-            });
+            }, TaskCreationOptions.LongRunning);
         }
 
 
-        internal static void SendResponse(TcpClient client, BaseResponse response) {
+        internal static void SendResponse(ClientInfo client, IResponse response) {
             try {
-                var stream = client.GetStream();
-
-                lock (stream) {
-                    byte[] response_bytes = Serializer.Serialize(response);
-                    stream.Write(response_bytes, 0, response_bytes.Length);
-                }
+                byte[] response_bytes = Serializer.Serialize(response);
+                client.Stream.Write(response_bytes, 0, response_bytes.Length);
             }
-            catch { }
+            catch (Exception e) {
+                Console.WriteLine(e);
+            }
         }
 
-        internal static void SendNotification(TcpClient client, BaseNotification notification) {
+        internal static void SendNotification(ClientInfo client, INotification notification) {
             try {
-                var stream = client.GetStream();
-
-                lock (stream) {
-                    byte[] notification_bytes = Serializer.Serialize(notification);
-                    stream.Write(notification_bytes, 0, notification_bytes.Length);
-                }
+                byte[] notification_bytes = Serializer.Serialize(notification);
+                client.Stream.Write(notification_bytes, 0, notification_bytes.Length);
             }
-            catch { }
+            catch (Exception e) {
+                Console.WriteLine(e);
+            }
+        }
+
+
+        internal static void BroadcastNotification(List<ClientInfo> receivers, INotification notification) {
+            foreach (var receiver in receivers) {
+                Server.SendNotification(receiver, notification);
+            }
         }
 
 
@@ -179,16 +188,6 @@ namespace Network.Server {
             public static TcpListener Listener { get; set; }
             public static ThreadSafeList<ClientInfo> Clients { get; set; }
         }
-    }
-
-
-    internal class ClientInfo {
-        // User data
-        public string UserID { get; set; }
-
-        // Connection data
-        public TcpClient TCP { get; set; }
-        public NetworkStream Stream { get; set; }
     }
 
 }

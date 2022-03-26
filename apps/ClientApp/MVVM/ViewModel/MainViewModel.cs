@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 using ClientApp.Core;
 using ClientApp.MVVM.Model;
@@ -14,12 +15,6 @@ namespace ClientApp.MVVM.ViewModel {
             CurrentUser = new User();
             CurrentUser.Id = Client.Data.UserID;
 
-            foreach (var friend_id in Client.Data.FriendList) {
-                FriendList.Add(new User {
-                    Id = friend_id
-                });
-            }
-
             HomeViewCommand = new RelayCommand(obj => {
                 HomeVM = new HomeViewModel() {
                     FriendList = FriendList
@@ -34,6 +29,14 @@ namespace ClientApp.MVVM.ViewModel {
                 ChatVM = new ChatViewModel(user);
                 CurrentView = ChatVM;
             });
+        }
+
+        public void SetFriendList(List<string> friends) {
+            foreach (var friend_id in friends) {
+                FriendList.Add(new User {
+                    Id = friend_id
+                });
+            }
         }
 
         // Commands

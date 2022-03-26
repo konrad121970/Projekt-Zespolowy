@@ -4,23 +4,22 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FFC8F06C-41BF-46F8-BF7C-7E6E23DFF20C}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>Network.Client</RootNamespace>
-    <AssemblyName>Network.Client</AssemblyName>
+    <ProjectGuid>{2FF1E12D-8E69-4290-8951-5B8310379CF0}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>ClientTest</RootNamespace>
+    <AssemblyName>ClientTest</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
-    <LangVersion>9.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>$(SolutionDir)build\Debug\bin\libs\$(AssemblyName)</OutputPath>
-    <IntermediateOutputPath>$(SolutionDir)build\Debug\obj\libs\$(AssemblyName)</IntermediateOutputPath>
+    <OutputPath>$(SolutionDir)build\Debug\bin\tests\$(AssemblyName)</OutputPath>
+    <IntermediateOutputPath>$(SolutionDir)build\Debug\obj\tests\$(AssemblyName)</IntermediateOutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -29,14 +28,11 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>$(SolutionDir)build\Release\bin\libs\$(AssemblyName)</OutputPath>
-    <IntermediateOutputPath>$(SolutionDir)build\Release\obj\libs\$(AssemblyName)</IntermediateOutputPath>
+    <OutputPath>$(SolutionDir)build\Release\bin\tests\$(AssemblyName)</OutputPath>
+    <IntermediateOutputPath>$(SolutionDir)build\Release\obj\tests\$(AssemblyName)</IntermediateOutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -49,16 +45,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Client.cs" />
-    <Compile Include="DataProcessing\NotificationDispatcher.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DataProcessing\ResponseDispatcher.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Network.Shared\Network.Shared.csproj">
+    <ProjectReference Include="..\..\libs\Network.Client\Network.Client.csproj">
+      <Project>{ffc8f06c-41bf-46f8-bf7c-7e6e23dff20c}</Project>
+      <Name>Network.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\libs\Network.Shared\Network.Shared.csproj">
       <Project>{1699265f-9187-4a50-bb3d-3dc3e6d48161}</Project>
       <Name>Network.Shared</Name>
     </ProjectReference>
