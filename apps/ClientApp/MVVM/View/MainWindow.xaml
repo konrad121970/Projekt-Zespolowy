@@ -92,7 +92,8 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-
+                    
+                    <!--Home-->
                     <Button Width="25" Height="25"
                             BorderThickness="0"
                             Foreground="Gray"
@@ -104,14 +105,42 @@
                         <Image Source="/Icons/logo.png"
                            Width="20" Height="20"
                            RenderOptions.BitmapScalingMode="Fant"/>
-                    </Button>  
-
+                    </Button>
+                    <!--Swrwery-->
+                    <Button Width="25" Height="25"
+                            BorderThickness="0"
+                            Foreground="Gray"
+                            FontWeight="Bold"
+                            Margin="0,0,0,3"
+                            Background="Transparent"
+                            Command="{Binding ServerListViewCommand}"
+                            Grid.Column="1">
+                        <Image Source="/Icons/server_list_icon.png"
+                           Width="20" Height="20"
+                           RenderOptions.BitmapScalingMode="Fant"/>
+                    </Button>
+                    <!--Znajomi-->
+                    <Button Width="25" Height="25"
+                            BorderThickness="0"
+                            Foreground="Gray"
+                            FontWeight="Bold"
+                            Margin="0,0,0,3"
+                            Background="Transparent"
+                            Command="{Binding FriendListViewCommand}"
+                            Grid.Column="0">
+                        <Image Source="/Icons/friends_list_icon.png"
+                           Width="20" Height="20"
+                           RenderOptions.BitmapScalingMode="Fant"/>
+                    </Button>
                 </Grid>
             </Border>
             <!--Środkowy pasek lewego panelu-->
+
+            <!--Znajomi-->
             <Border Background="Transparent"
-                    Grid.Row="1">
-                <ListBox x:Name="MyItems"
+                    Grid.Row="1"
+                    Visibility="{Binding FriendListVisibility}">
+                <ListBox x:Name="Friends"
                          ItemsSource="{Binding FriendList}"
                          Background="Transparent"
                          BorderBrush="Transparent"
@@ -150,15 +179,65 @@
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
-                    
+
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel/>
                         </ItemsPanelTemplate>
                     </ListBox.ItemsPanel>
                 </ListBox>
+            </Border>
 
+            <!--Serwery-->
+            <Border Background="Transparent"
+                    Grid.Row="1"
+                    Visibility="{Binding ServerListVisibility}">
+                <ListBox x:Name="Servers"
+                         ItemsSource="{Binding ServerList}"
+                         Background="Transparent"
+                         BorderBrush="Transparent"
+                         ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                         ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                         ScrollViewer.CanContentScroll="False"
+                         HorizontalContentAlignment="Stretch">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Height="40"
+                                  HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Ellipse Width="25"
+                                         Height="25"
+                                         Fill="Green"/>
 
+                                <Border Background="Transparent"
+                                        Grid.Column="1">
+
+                                    <TextBlock Text="{Binding Id}"
+                                               Padding="10,0,0,0"
+                                               VerticalAlignment="Center"
+                                               Foreground="White"/>
+
+                                </Border>
+
+                                <Grid.InputBindings>
+                                    <MouseBinding Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}, Path=DataContext.ChatViewCommand}"       
+                                          Gesture="LeftClick"
+                                          CommandParameter="{Binding}"/>
+                                </Grid.InputBindings>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                </ListBox>
             </Border>
 
 
@@ -196,7 +275,7 @@
                             Background="Transparent"
                             Command="{Binding}"
                             Grid.Column="2">
-                        <Image Source="/Icons/logo.png"
+                        <Image Source="/Icons/settings_icon.png"
                            Width="20" Height="20"
                            RenderOptions.BitmapScalingMode="Fant"/>
                     </Button>
