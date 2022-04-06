@@ -52,19 +52,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Serializer.cs" />
-    <Compile Include="DataTransfer\Temp\Accept_Friend_Invitation\AcceptFriendInvitationNotification.cs" />
-    <Compile Include="DataTransfer\Temp\Accept_Friend_Invitation\AcceptFriendInvitationRequest.cs" />
-    <Compile Include="DataTransfer\Temp\Get_Conversation_History\GetConversationHistoryRequest.cs" />
-    <Compile Include="DataTransfer\Temp\Get_Conversation_History\GetConversationHistoryResponse.cs" />
     <Compile Include="DataTransfer\Interface\INotification.cs" />
     <Compile Include="DataTransfer\Interface\IRequest.cs" />
     <Compile Include="DataTransfer\Interface\IResponse.cs" />
-    <Compile Include="DataTransfer\Temp\Log_In_To_Account\LogInToAccountRequest.cs" />
-    <Compile Include="DataTransfer\Temp\Log_In_To_Account\LogInToAccountResponse.cs" />
-    <Compile Include="DataTransfer\Temp\Send_Friend_Invitation\SendFriendInvitationNotification.cs" />
-    <Compile Include="DataTransfer\Temp\Send_Friend_Invitation\SendFriendInvitationRequest.cs" />
-    <Compile Include="DataTransfer\Temp\Send_Message_To_Friend\SendMessageToFriendNotification.cs" />
-    <Compile Include="DataTransfer\Temp\Send_Message_To_Friend\SendMessageToFriendRequest.cs" />
     <Compile Include="DataTransfer\Test\Client\ClientTestNotification.cs" />
     <Compile Include="DataTransfer\Test\Client\ClientTestResponse.cs" />
     <Compile Include="DataTransfer\Test\Client\ClientTestRequest.cs" />

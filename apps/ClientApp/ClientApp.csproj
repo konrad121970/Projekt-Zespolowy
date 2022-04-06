@@ -65,62 +65,8 @@
     </Compile>
     <Compile Include="Core\ObservableObject.cs" />
     <Compile Include="Core\RelayCommand.cs" />
-    <Page Include="MVVM\View\ChatView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MVVM\View\HomeView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MVVM\View\LoginWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MVVM\View\MainWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MVVM\View\ServerView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\ChatItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\MessageBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\Scrollbar.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MVVM\Model\Message.cs" />
-    <Compile Include="MVVM\Model\User.cs" />
-    <Compile Include="MVVM\ViewModel\ChatViewModel.cs" />
-    <Compile Include="MVVM\ViewModel\HomeViewModel.cs" />
-    <Compile Include="MVVM\ViewModel\LoginViewModel.cs" />
-    <Compile Include="MVVM\ViewModel\MainViewModel.cs" />
-    <Compile Include="MVVM\ViewModel\ServerViewModel.cs" />
-    <Compile Include="MVVM\View\ChatView.xaml.cs">
-      <DependentUpon>ChatView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MVVM\View\HomeView.xaml.cs">
-      <DependentUpon>HomeView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MVVM\View\LoginWindow.xaml.cs">
-      <DependentUpon>LoginWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MVVM\View\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MVVM\View\ServerView.xaml.cs">
-      <DependentUpon>ServerView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -147,14 +93,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icons\logo.png" />
-    <Resource Include="Icons\send.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icons\add.png" />
-    <Resource Include="Icons\delete.png" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\libs\Network.Client\Network.Client.csproj">
       <Project>{ffc8f06c-41bf-46f8-bf7c-7e6e23dff20c}</Project>
       <Name>Network.Client</Name>
@@ -165,12 +103,18 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icons\server_list_icon.png" />
+    <Folder Include="MVVM\Model\" />
+    <Folder Include="MVVM\ViewModel\" />
+    <Folder Include="MVVM\View\" />
+    <Folder Include="Themes\" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Icons\add.png" />
+    <Resource Include="Icons\delete.png" />
     <Resource Include="Icons\friends_list_icon.png" />
-  </ItemGroup>
-  <ItemGroup>
+    <Resource Include="Icons\logo.png" />
+    <Resource Include="Icons\send.png" />
+    <Resource Include="Icons\server_list_icon.png" />
     <Resource Include="Icons\settings_icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

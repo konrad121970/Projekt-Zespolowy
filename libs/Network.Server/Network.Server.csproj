@@ -60,33 +60,6 @@
   <ItemGroup>
     <Compile Include="Core\ThreadSafeList.cs" />
     <Compile Include="Core\TimestampTextWriter.cs" />
-    <Compile Include="Database\Account.cs">
-      <DependentUpon>DrocsidDbModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Database\Conversation.cs">
-      <DependentUpon>DrocsidDbModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Database\DrocsidDbModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DrocsidDbModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Database\DrocsidDbModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DrocsidDbModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Database\DrocsidDbModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DrocsidDbModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Database\Message.cs">
-      <DependentUpon>DrocsidDbModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Database\PendingFriendInvitation.cs">
-      <DependentUpon>DrocsidDbModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataProcessing\Account\AccountRequestManager.cs" />
     <Compile Include="DataProcessing\Friend\FriendRequestManager.cs" />
     <Compile Include="DataProcessing\Guild\GuildRequestManager.cs" />
@@ -98,13 +71,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <EntityDeploy Include="Database\DrocsidDbModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DrocsidDbModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="Database\DrocsidDbModel.edmx.diagram">
-      <DependentUpon>DrocsidDbModel.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -116,18 +82,8 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Content Include="Database\DrocsidDbModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DrocsidDbModel.edmx</DependentUpon>
-      <LastGenOutput>DrocsidDbModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Database\DrocsidDbModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DrocsidDbModel.edmx</DependentUpon>
-      <LastGenOutput>DrocsidDbModel.cs</LastGenOutput>
-    </Content>
+    <Folder Include="Database\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
