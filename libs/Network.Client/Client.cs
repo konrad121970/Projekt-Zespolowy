@@ -131,10 +131,6 @@ namespace Network.Client {
 
 
         public class Data {
-            // User data (received from server)
-            public static string UserID { get; set; }
-            public static string AccessToken { get; set; }
-
             // Connection data
             internal static TcpClient TCP { get; set; }
             internal static NetworkStream Stream { get; set; }

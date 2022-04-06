@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="97a24f325bf34667b84e8bf8e995f16a" Name="Diagram1">
+        <EntityTypeShape EntityType="DrocsidDbModel.Account" Width="1.5" PointX="0.75" PointY="2.25" />
+        <EntityTypeShape EntityType="DrocsidDbModel.Friendship" Width="1.5" PointX="3" PointY="1.125" />
+        <EntityTypeShape EntityType="DrocsidDbModel.PrivateMessage" Width="1.5" PointX="3" PointY="3.75" />
+        <AssociationConnector Association="DrocsidDbModel.FK__Friendshi__Frien__267ABA7A" />
+        <AssociationConnector Association="DrocsidDbModel.FK__Friendshi__UserI__25869641" />
+        <AssociationConnector Association="DrocsidDbModel.FK__PrivateMe__Recei__2A4B4B5E" />
+        <AssociationConnector Association="DrocsidDbModel.FK__PrivateMe__Sende__29572725" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,38 +1,24 @@
-USE PZ_DB;
-
+USE Drocsid_DB;
 
 CREATE TABLE Account (
     ID                  INT                 NOT NULL        PRIMARY KEY IDENTITY,
-
     Username            VARCHAR(64)         NOT NULL,
+
+    Email               VARCHAR(128)        NOT NULL,
     Password            VARCHAR(1024)       NOT NULL,
 );
 
-CREATE TABLE Conversation (
-	ID					INT					NOT NULL        PRIMARY KEY IDENTITY,
-	Name                VARCHAR(64)         NOT NULL,
+CREATE TABLE Friendship (
+	ID 					INT					NOT NULL		PRIMARY KEY IDENTITY,
+
+    UserID              INT                 NOT NULL        FOREIGN KEY REFERENCES Account(ID),
+    FriendID            INT                 NOT NULL        FOREIGN KEY REFERENCES Account(ID),
 );
 
-CREATE TABLE Message (
-	ID                  INT                 NOT NULL        PRIMARY KEY IDENTITY,
-	
-	Sender_ID           INT                 NOT NULL        FOREIGN KEY REFERENCES Account(ID),
-	Conversation_ID     INT                 NOT NULL        FOREIGN KEY REFERENCES Conversation(ID),
+CREATE TABLE PrivateMessage (
+    ID                  INT                 NOT NULL        PRIMARY KEY IDENTITY,
+    Content             VARCHAR(5000)       NOT NULL,
 
-    Content             VARCHAR(1024)       NOT NULL,
-    SendDate            DATE                NOT NULL,
-);
-
-CREATE TABLE Account_Conversation (
-    Member_ID           INT                 NOT NULL        FOREIGN KEY REFERENCES Account(ID),
-	Conversation_ID     INT                 NOT NULL        FOREIGN KEY REFERENCES Conversation(ID),
-
-    PRIMARY KEY (Member_ID, Conversation_ID),
-);
-
-CREATE TABLE PendingFriendInvitation (
-	ID                  INT                 NOT NULL        PRIMARY KEY IDENTITY,
-	
-	Sender_ID           INT                 NOT NULL        FOREIGN KEY REFERENCES Account(ID),
-	Receiver_ID         INT                 NOT NULL        FOREIGN KEY REFERENCES Account(ID),
+    SenderID            INT                 NOT NULL        FOREIGN KEY REFERENCES Account(ID),
+    ReceiverID          INT                 NOT NULL        FOREIGN KEY REFERENCES Account(ID),
 );

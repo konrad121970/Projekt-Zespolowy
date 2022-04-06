@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DrocsidDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="1024" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Friendship">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="FriendID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PrivateMessage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Content" Type="varchar" MaxLength="5000" Nullable="false" />
+          <Property Name="SenderID" Type="int" Nullable="false" />
+          <Property Name="ReceiverID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Friendshi__Frien__267ABA7A">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="Friendship" Type="Self.Friendship" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Friendship">
+              <PropertyRef Name="FriendID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Friendshi__UserI__25869641">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="Friendship" Type="Self.Friendship" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Friendship">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PrivateMe__Recei__2A4B4B5E">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="PrivateMessage" Type="Self.PrivateMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PrivateMessage">
+              <PropertyRef Name="ReceiverID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PrivateMe__Sende__29572725">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="PrivateMessage" Type="Self.PrivateMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PrivateMessage">
+              <PropertyRef Name="SenderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DrocsidDbModelStoreContainer">
+          <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Friendship" EntityType="Self.Friendship" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PrivateMessage" EntityType="Self.PrivateMessage" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Friendshi__Frien__267ABA7A" Association="Self.FK__Friendshi__Frien__267ABA7A">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Friendship" EntitySet="Friendship" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Friendshi__UserI__25869641" Association="Self.FK__Friendshi__UserI__25869641">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Friendship" EntitySet="Friendship" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PrivateMe__Recei__2A4B4B5E" Association="Self.FK__PrivateMe__Recei__2A4B4B5E">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="PrivateMessage" EntitySet="PrivateMessage" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PrivateMe__Sende__29572725" Association="Self.FK__PrivateMe__Sende__29572725">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="PrivateMessage" EntitySet="PrivateMessage" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DrocsidDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DrocsidDbContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Accounts" EntityType="DrocsidDbModel.Account" />
+          <EntitySet Name="Friendships" EntityType="DrocsidDbModel.Friendship" />
+          <EntitySet Name="PrivateMessages" EntityType="DrocsidDbModel.PrivateMessage" />
+          <AssociationSet Name="FK__Friendshi__Frien__267ABA7A" Association="DrocsidDbModel.FK__Friendshi__Frien__267ABA7A">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="Friendship" EntitySet="Friendships" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Friendshi__UserI__25869641" Association="DrocsidDbModel.FK__Friendshi__UserI__25869641">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="Friendship" EntitySet="Friendships" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PrivateMe__Recei__2A4B4B5E" Association="DrocsidDbModel.FK__PrivateMe__Recei__2A4B4B5E">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="PrivateMessage" EntitySet="PrivateMessages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PrivateMe__Sende__29572725" Association="DrocsidDbModel.FK__PrivateMe__Sende__29572725">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="PrivateMessage" EntitySet="PrivateMessages" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Friendships" Relationship="DrocsidDbModel.FK__Friendshi__Frien__267ABA7A" FromRole="Account" ToRole="Friendship" />
+          <NavigationProperty Name="Friendships1" Relationship="DrocsidDbModel.FK__Friendshi__UserI__25869641" FromRole="Account" ToRole="Friendship" />
+          <NavigationProperty Name="PrivateMessages" Relationship="DrocsidDbModel.FK__PrivateMe__Recei__2A4B4B5E" FromRole="Account" ToRole="PrivateMessage" />
+          <NavigationProperty Name="PrivateMessages1" Relationship="DrocsidDbModel.FK__PrivateMe__Sende__29572725" FromRole="Account" ToRole="PrivateMessage" />
+        </EntityType>
+        <EntityType Name="Friendship">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="FriendID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="DrocsidDbModel.FK__Friendshi__Frien__267ABA7A" FromRole="Friendship" ToRole="Account" />
+          <NavigationProperty Name="Account1" Relationship="DrocsidDbModel.FK__Friendshi__UserI__25869641" FromRole="Friendship" ToRole="Account" />
+        </EntityType>
+        <EntityType Name="PrivateMessage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Content" Type="String" Nullable="false" MaxLength="5000" FixedLength="false" Unicode="false" />
+          <Property Name="SenderID" Type="Int32" Nullable="false" />
+          <Property Name="ReceiverID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="DrocsidDbModel.FK__PrivateMe__Recei__2A4B4B5E" FromRole="PrivateMessage" ToRole="Account" />
+          <NavigationProperty Name="Account1" Relationship="DrocsidDbModel.FK__PrivateMe__Sende__29572725" FromRole="PrivateMessage" ToRole="Account" />
+        </EntityType>
+        <Association Name="FK__Friendshi__Frien__267ABA7A">
+          <End Type="DrocsidDbModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="DrocsidDbModel.Friendship" Role="Friendship" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Friendship">
+              <PropertyRef Name="FriendID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Friendshi__UserI__25869641">
+          <End Type="DrocsidDbModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="DrocsidDbModel.Friendship" Role="Friendship" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Friendship">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PrivateMe__Recei__2A4B4B5E">
+          <End Type="DrocsidDbModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="DrocsidDbModel.PrivateMessage" Role="PrivateMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PrivateMessage">
+              <PropertyRef Name="ReceiverID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PrivateMe__Sende__29572725">
+          <End Type="DrocsidDbModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="DrocsidDbModel.PrivateMessage" Role="PrivateMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PrivateMessage">
+              <PropertyRef Name="SenderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DrocsidDbModelStoreContainer" CdmEntityContainer="DrocsidDbContext">
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="DrocsidDbModel.Account">
+              <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Friendships">
+            <EntityTypeMapping TypeName="DrocsidDbModel.Friendship">
+              <MappingFragment StoreEntitySet="Friendship">
+                <ScalarProperty Name="FriendID" ColumnName="FriendID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PrivateMessages">
+            <EntityTypeMapping TypeName="DrocsidDbModel.PrivateMessage">
+              <MappingFragment StoreEntitySet="PrivateMessage">
+                <ScalarProperty Name="ReceiverID" ColumnName="ReceiverID" />
+                <ScalarProperty Name="SenderID" ColumnName="SenderID" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

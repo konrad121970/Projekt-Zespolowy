@@ -19,8 +19,8 @@ namespace Network.Server {
 
     internal class ClientInfo {
         // User data
-        public string UserID { get; set; }
-        public string AccessToken { get; set; }
+        public int UserID { get; set; }
+        public string Username { get; set; }
 
         // Connection data
         public TcpClient TCP { get; set; }
@@ -109,7 +109,7 @@ namespace Network.Server {
                             var client_info = Server.Data.Clients.Find(p => (p.TCP == client.TCP));
 
                             if (client_info != null) {
-                                Console.WriteLine("{0} connection lost!", client_info.UserID);
+                                Console.WriteLine("Client [id={0}, username={1}] connection lost!", client_info.UserID, client_info.Username);
                                 Server.Data.Clients.Remove(client_info);
                             }
 
