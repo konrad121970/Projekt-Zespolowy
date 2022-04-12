@@ -73,11 +73,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DrocsidDbModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Database\DrocsidDbModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DrocsidDbModel.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Database\Friendship.cs">
       <DependentUpon>DrocsidDbModel.tt</DependentUpon>
     </Compile>
@@ -99,9 +94,6 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DrocsidDbModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Database\DrocsidDbModel.edmx.diagram">
-      <DependentUpon>DrocsidDbModel.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

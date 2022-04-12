@@ -11,13 +11,8 @@ SET IDENTITY_INSERT [dbo].[Account] OFF
 -- Friendship
 SET IDENTITY_INSERT [dbo].[Friendship] ON
 	INSERT INTO [dbo].[Friendship] ([ID], [UserID], [FriendID]) VALUES (1, 1, 2)
-	INSERT INTO [dbo].[Friendship] ([ID], [UserID], [FriendID]) VALUES (2, 2, 1)
-	
-	INSERT INTO [dbo].[Friendship] ([ID], [UserID], [FriendID]) VALUES (3, 1, 3)
-	INSERT INTO [dbo].[Friendship] ([ID], [UserID], [FriendID]) VALUES (4, 3, 1)
-		
-	INSERT INTO [dbo].[Friendship] ([ID], [UserID], [FriendID]) VALUES (5, 2, 3)
-	INSERT INTO [dbo].[Friendship] ([ID], [UserID], [FriendID]) VALUES (6, 3, 2)
+	INSERT INTO [dbo].[Friendship] ([ID], [UserID], [FriendID]) VALUES (2, 1, 3)
+	INSERT INTO [dbo].[Friendship] ([ID], [UserID], [FriendID]) VALUES (3, 2, 3)
 SET IDENTITY_INSERT [dbo].[Friendship] OFF
 
 -- PrivateMessage
