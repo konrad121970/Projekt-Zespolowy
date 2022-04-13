@@ -18,7 +18,7 @@ namespace Network.Server.Database
         public int UserID { get; set; }
         public int FriendID { get; set; }
     
-        public virtual Account Account { get; set; }
-        public virtual Account Account1 { get; set; }
+        public virtual Account Friend { get; set; }
+        public virtual Account User { get; set; }
     }
 }

@@ -7,3 +7,5 @@ SQLCMD -S (LocalDB)\MSSQLLocalDB -E -i sql_query\insert_values.sql
 
 echo - database created
 echo.
+
+pause > nul

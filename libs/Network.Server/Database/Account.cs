@@ -17,10 +17,9 @@ namespace Network.Server.Database
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Account()
         {
-            this.Friendships = new HashSet<Friendship>();
-            this.Friendships1 = new HashSet<Friendship>();
-            this.PrivateMessages = new HashSet<PrivateMessage>();
-            this.PrivateMessages1 = new HashSet<PrivateMessage>();
+            this.Friends = new HashSet<Friendship>();
+            this.PrivateMessagesReceived = new HashSet<PrivateMessage>();
+            this.PrivateMessagesSent = new HashSet<PrivateMessage>();
         }
     
         public int ID { get; set; }
@@ -29,12 +28,10 @@ namespace Network.Server.Database
         public string Password { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Friendship> Friendships { get; set; }
+        public virtual ICollection<Friendship> Friends { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Friendship> Friendships1 { get; set; }
+        public virtual ICollection<PrivateMessage> PrivateMessagesReceived { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PrivateMessage> PrivateMessages { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PrivateMessage> PrivateMessages1 { get; set; }
+        public virtual ICollection<PrivateMessage> PrivateMessagesSent { get; set; }
     }
 }

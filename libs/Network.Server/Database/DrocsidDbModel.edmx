@@ -134,10 +134,9 @@
           <Property Name="Username" Type="String" Nullable="false" MaxLength="64" Unicode="false" FixedLength="false" />
           <Property Name="Email" Type="String" Nullable="false" MaxLength="128" Unicode="false" FixedLength="false" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="1024" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="Friendships" Relationship="DrocsidDbModel.FK__Friendshi__Frien__267ABA7A" FromRole="Account" ToRole="Friendship" />
-          <NavigationProperty Name="Friendships1" Relationship="DrocsidDbModel.FK__Friendshi__UserI__25869641" FromRole="Account" ToRole="Friendship" />
-          <NavigationProperty Name="PrivateMessages" Relationship="DrocsidDbModel.FK__PrivateMe__Recei__2A4B4B5E" FromRole="Account" ToRole="PrivateMessage" />
-          <NavigationProperty Name="PrivateMessages1" Relationship="DrocsidDbModel.FK__PrivateMe__Sende__29572725" FromRole="Account" ToRole="PrivateMessage" />
+          <NavigationProperty Name="Friends" Relationship="DrocsidDbModel.FK__Friendshi__Frien__267ABA7A" FromRole="Account" ToRole="Friendship" />
+          <NavigationProperty Name="PrivateMessagesReceived" Relationship="DrocsidDbModel.FK__PrivateMe__Recei__2A4B4B5E" FromRole="Account" ToRole="PrivateMessage" />
+          <NavigationProperty Name="PrivateMessagesSent" Relationship="DrocsidDbModel.FK__PrivateMe__Sende__29572725" FromRole="Account" ToRole="PrivateMessage" />
         </EntityType>
         <EntityType Name="Friendship">
           <Key>
@@ -146,8 +145,8 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <Property Name="FriendID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Account" Relationship="DrocsidDbModel.FK__Friendshi__Frien__267ABA7A" FromRole="Friendship" ToRole="Account" />
-          <NavigationProperty Name="Account1" Relationship="DrocsidDbModel.FK__Friendshi__UserI__25869641" FromRole="Friendship" ToRole="Account" />
+          <NavigationProperty Name="Friend" Relationship="DrocsidDbModel.FK__Friendshi__Frien__267ABA7A" FromRole="Friendship" ToRole="Account" />
+          <NavigationProperty Name="User" Relationship="DrocsidDbModel.FK__Friendshi__UserI__25869641" FromRole="Friendship" ToRole="Account" />
         </EntityType>
         <EntityType Name="PrivateMessage">
           <Key>
@@ -157,8 +156,8 @@
           <Property Name="Content" Type="String" Nullable="false" MaxLength="5000" Unicode="false" FixedLength="false" />
           <Property Name="SenderID" Type="Int32" Nullable="false" />
           <Property Name="ReceiverID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Account" Relationship="DrocsidDbModel.FK__PrivateMe__Recei__2A4B4B5E" FromRole="PrivateMessage" ToRole="Account" />
-          <NavigationProperty Name="Account1" Relationship="DrocsidDbModel.FK__PrivateMe__Sende__29572725" FromRole="PrivateMessage" ToRole="Account" />
+          <NavigationProperty Name="Receiver" Relationship="DrocsidDbModel.FK__PrivateMe__Recei__2A4B4B5E" FromRole="PrivateMessage" ToRole="Account" />
+          <NavigationProperty Name="Sender" Relationship="DrocsidDbModel.FK__PrivateMe__Sende__29572725" FromRole="PrivateMessage" ToRole="Account" />
         </EntityType>
         <Association Name="FK__Friendshi__Frien__267ABA7A">
           <End Role="Account" Type="DrocsidDbModel.Account" Multiplicity="1" />
@@ -265,8 +264,8 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram DiagramId="8d59f59a1cc9462f90d2e81dfef152dd" Name="Diagram1">
-        <EntityTypeShape EntityType="DrocsidDbModel.Account" Width="1.5" PointX="0.75" PointY="2.25" IsExpanded="true" />
+      <Diagram DiagramId="1a24f8d2bba8472ba5feb3601311dca0" Name="Diagram1">
+        <EntityTypeShape EntityType="DrocsidDbModel.Account" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
         <EntityTypeShape EntityType="DrocsidDbModel.Friendship" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="DrocsidDbModel.PrivateMessage" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
         <AssociationConnector Association="DrocsidDbModel.FK__Friendshi__Frien__267ABA7A" ManuallyRouted="false" />

@@ -6,6 +6,12 @@ CREATE TABLE Account (
 
     Email               VARCHAR(128)        NOT NULL,
     Password            VARCHAR(1024)       NOT NULL,
+	
+	-- NP:Friendships -> rename_to("Friends")
+	-- NP:Friendships1 -> remove_property(true)
+	
+	-- NP:PrivateMessages -> rename_to("PrivateMessagesReceived")
+	-- NP:PrivateMessages1 -> rename_to("PrivateMessagesSent")
 );
 
 CREATE TABLE Friendship (
@@ -13,6 +19,9 @@ CREATE TABLE Friendship (
 
     UserID              INT                 NOT NULL        FOREIGN KEY REFERENCES Account(ID),
     FriendID            INT                 NOT NULL        FOREIGN KEY REFERENCES Account(ID),
+	
+	-- NP:Account -> rename_to("Friend")
+	-- NP:Account1 -> rename_to("User")
 );
 
 CREATE TABLE PrivateMessage (
@@ -21,4 +30,7 @@ CREATE TABLE PrivateMessage (
 
     SenderID            INT                 NOT NULL        FOREIGN KEY REFERENCES Account(ID),
     ReceiverID          INT                 NOT NULL        FOREIGN KEY REFERENCES Account(ID),
+	
+	-- NP:Account -> rename_to("Receiver")
+	-- NP:Account1 -> rename_to("Sender")
 );

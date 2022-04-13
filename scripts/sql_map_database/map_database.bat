@@ -14,7 +14,7 @@ cd %edmx_target_dir%
 %windir%\Microsoft.NET\Framework\v4.0.30319\edmgen.exe /mode:fullgeneration /c:"Data Source=(localdb)\MSSQLLocalDB; Initial Catalog=Drocsid_DB; Integrated Security=SSPI" /project:DrocsidDbModel /entitycontainer:DrocsidDbContext /namespace:DrocsidDbModel /language:CSharp /pl
 
 cd %edmx_source_dir%
-start EDMX.exe %edmx_target_dir%\
+start EDMX.exe %edmx_target_dir%\ ..\..\sql_create_database\sql_query\create_tabels.sql
 
 cd %entity_framework_dir%
 call text_transform.bat %edmx_target_dir% cs
@@ -30,3 +30,5 @@ del %edmx_target_dir%\t4list.txt
 
 echo - mapping finished
 echo.
+
+pause > nul

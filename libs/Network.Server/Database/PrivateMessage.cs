@@ -19,7 +19,7 @@ namespace Network.Server.Database
         public int SenderID { get; set; }
         public int ReceiverID { get; set; }
     
-        public virtual Account Account { get; set; }
-        public virtual Account Account1 { get; set; }
+        public virtual Account Receiver { get; set; }
+        public virtual Account Sender { get; set; }
     }
 }
